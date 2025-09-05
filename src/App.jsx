@@ -6,21 +6,20 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
-
 function App() {
-
   return (
-      <div>
-        <Navbar />
+    <div className="relative">
+      <Navbar />
+      <main>
         <Hero />
         <About />
         <Service />
         <Projects />
         <Contact />
-        <Footer />
-
-      </div>
-  )
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
