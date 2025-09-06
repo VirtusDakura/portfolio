@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaCode, FaMobile, FaServer, FaDatabase, FaCloud, FaRocket } from 'react-icons/fa';
 import { SiReact, SiNodedotjs } from 'react-icons/si';
+import ScrollAnimation from './ScrollAnimation';
 
 const services = [
     {
@@ -55,20 +56,35 @@ const services = [
 
 const Service = () => {
     return (
-        <section id='skills' className='bg-black text-white py-12 sm:py-16 lg:py-20'>
+        <section id='skills' className='text-white py-12 sm:py-16 lg:py-20'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32'>
-                <div className='text-center mb-12 sm:mb-16'>
-                    <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
-                        My <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Skills</span>
-                    </h2>
-                    <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0'>
-                        Specialized expertise in modern software development technologies and practices
-                    </p>
-                </div>
+                <ScrollAnimation direction="up">
+                    <div className='text-center mb-12 sm:mb-16'>
+                        <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
+                            My <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Skills</span>
+                        </h2>
+                        <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0'>
+                            Specialized expertise in modern software development technologies and practices
+                        </p>
+                    </div>
+                </ScrollAnimation>
 
                 {/* Mobile/Tablet Horizontal Scroll */}
-                <div className='lg:hidden overflow-x-auto pb-4 scroll-smooth'>
-                    <div className='flex space-x-6 sm:space-x-8 min-w-max'>
+                <ScrollAnimation direction="left">
+                    <div className='lg:hidden'>
+                        <div className='relative'>
+                            {/* Left scroll indicator arrow */}
+                            <div className='absolute left-2 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none'>
+                                <div className='text-blue-400 text-2xl animate-pulse font-bold'>‹</div>
+                            </div>
+                            
+                            {/* Right scroll indicator arrow */}
+                            <div className='absolute right-2 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none'>
+                                <div className='text-purple-400 text-2xl animate-pulse font-bold'>›</div>
+                            </div>
+                            
+                            <div className='overflow-x-auto pb-4 scroll-smooth scrollbar-hide'>
+                                <div className='flex space-x-6 sm:space-x-8 min-w-max'>
                         {services.map((service) => (
                             <div 
                                 key={service.id}
@@ -120,10 +136,14 @@ const Service = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ScrollAnimation>
 
                 {/* Desktop Grid */}
-                <div className='hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8'>
+                <ScrollAnimation direction="right">
+                    <div className='hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8'>
                     {services.map((service) => (
                         <div 
                             key={service.id}
@@ -175,19 +195,22 @@ const Service = () => {
                         </div>
                     ))}
                 </div>
+                </ScrollAnimation>
 
                 {/* Call to Action */}
-                <div className='text-center mt-12 sm:mt-16'>
-                    <p className='text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base px-4 sm:px-0'>
-                        Interested in working together? Let's discuss your project.
-                    </p>
-                    <button 
-                        onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                        className='bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 cursor-pointer text-sm sm:text-base'
-                    >
-                        Start a Project
-                    </button>
-                </div>
+                <ScrollAnimation direction="up">
+                    <div className='text-center mt-12 sm:mt-16'>
+                        <p className='text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base px-4 sm:px-0'>
+                            Interested in working together? Let's discuss your project.
+                        </p>
+                        <button 
+                            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                            className='bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 cursor-pointer text-sm sm:text-base'
+                        >
+                            Start a Project
+                        </button>
+                    </div>
+                </ScrollAnimation>
             </div>
         </section>
     );

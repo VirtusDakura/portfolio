@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaGithub, FaExternalLinkAlt, FaReact, FaNodeJs, FaPython } from 'react-icons/fa';
 import { SiMongodb, SiExpress, SiTailwindcss, SiTypescript, SiNextdotjs, SiFirebase } from 'react-icons/si';
+import ScrollAnimation from './ScrollAnimation';
 import ProjectImage1 from '../assets/Project1.png';
 import ProjectImage2 from '../assets/Project2.png';
 import ProjectImage3 from '../assets/Project3.png';
@@ -80,18 +81,19 @@ const Projects = () => {
     };
 
     return (
-        <section id='projects' className='bg-gray-900 text-white py-12 sm:py-16 lg:py-20'>
+        <section id='projects' className='text-white py-12 sm:py-16 lg:py-20'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32'>
-                <div className='text-center mb-12 sm:mb-16'>
-                    <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
-                        Featured <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Projects</span>
-                    </h2>
-                    <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0'>
-                        Showcasing my latest work in web development, mobile apps, and innovative solutions
-                    </p>
-                    
-                    {/* Filter Buttons */}
-                    <div className='flex flex-wrap justify-center gap-2 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-0'>
+                <ScrollAnimation direction="up">
+                    <div className='text-center mb-12 sm:mb-16'>
+                        <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
+                            Featured <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Projects</span>
+                        </h2>
+                        <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0'>
+                            Showcasing my latest work in web development, mobile apps, and innovative solutions
+                        </p>
+                        
+                        {/* Filter Buttons */}
+                        <div className='flex flex-wrap justify-center gap-2 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-0'>
                         {categories.map((category) => (
                             <button
                                 key={category}
@@ -107,9 +109,23 @@ const Projects = () => {
                         ))}
                     </div>
                 </div>
+                </ScrollAnimation>
 
                 {/* Mobile/Tablet Horizontal Scroll */}
-                <div className='lg:hidden overflow-x-auto pb-4 scroll-smooth'>
+                <ScrollAnimation direction="left">
+                    <div className='lg:hidden'>
+                        <div className='relative'>
+                            {/* Left scroll indicator arrow */}
+                            <div className='absolute left-2 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none'>
+                                <div className='text-blue-400 text-2xl animate-pulse font-bold'>‹</div>
+                            </div>
+                            
+                            {/* Right scroll indicator arrow */}
+                            <div className='absolute right-2 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none'>
+                                <div className='text-purple-400 text-2xl animate-pulse font-bold'>›</div>
+                            </div>
+                            
+                            <div className='overflow-x-auto pb-4 scroll-smooth scrollbar-hide'>
                     <div className='flex space-x-6 sm:space-x-8 min-w-max'>
                         {filteredProjects.map((project) => (
                             <div 
@@ -215,10 +231,14 @@ const Projects = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ScrollAnimation>
 
                 {/* Desktop Grid */}
-                <div className='hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8'>
+                <ScrollAnimation direction="right">
+                    <div className='hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8'>
                     {filteredProjects.map((project) => (
                         <div 
                             key={project.id} 
@@ -323,19 +343,22 @@ const Projects = () => {
                         </div>
                     ))}
                 </div>
+                </ScrollAnimation>
 
                 {/* View All Projects Button */}
-                <div className='text-center mt-8 sm:mt-12'>
-                    <a 
-                        href='https://github.com/VirtusDakura' 
-                        target='_blank' 
-                        rel='noopener noreferrer'
-                        className='inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 cursor-pointer text-sm sm:text-base'
-                    >
-                        <FaGithub />
-                        View All Projects
-                    </a>
-                </div>
+                <ScrollAnimation direction="up">
+                    <div className='text-center mt-8 sm:mt-12'>
+                        <a 
+                            href='https://github.com/VirtusDakura' 
+                            target='_blank' 
+                            rel='noopener noreferrer'
+                            className='inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 cursor-pointer text-sm sm:text-base'
+                        >
+                            <FaGithub />
+                            View All Projects
+                        </a>
+                    </div>
+                </ScrollAnimation>
             </div>
 
             {/* Project Modal */}

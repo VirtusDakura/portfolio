@@ -4,17 +4,28 @@ import Service from './components/Service';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
+import TechBackground from './components/TechBackground';
 
 function App() {
   return (
     <div className="relative">
       <Navbar />
       <main>
-        <Hero />
-        <About />
-        <Service />
-        <Projects />
-        <Contact />
+        <TechBackground section="hero">
+          <Hero />
+        </TechBackground>
+        <TechBackground section="about">
+          <About />
+        </TechBackground>
+        <TechBackground section="services">
+          <Service />
+        </TechBackground>
+        <TechBackground section="projects">
+          <Projects />
+        </TechBackground>
+        <TechBackground section="contact">
+          <Contact />
+        </TechBackground>
       </main>
     </div>
   );

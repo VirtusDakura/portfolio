@@ -38,8 +38,8 @@ const Navbar = () => {
     <>
       <nav className={`fixed w-full top-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-black/80 backdrop-blur-md border-b border-gray-800/50' 
-          : 'bg-transparent'
+          ? 'bg-black/90 backdrop-blur-lg border-b border-gray-700/80 shadow-lg shadow-black/20' 
+          : 'bg-black/60 backdrop-blur-md border-b border-gray-800/50'
       } ${isMobileMenuOpen ? 'bg-transparent border-b-0' : ''}`}>
         <div className={`container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 transition-all duration-500 ${
           isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'

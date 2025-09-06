@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { FaGithub, FaLinkedin, FaDownload, FaArrowDown } from 'react-icons/fa';
 import HeroImage from '../assets/hero-image.png';
+import ScrollAnimation from './ScrollAnimation';
 
 const Hero = () => {
     const [displayedText, setDisplayedText] = useState('');
@@ -50,22 +51,15 @@ const Hero = () => {
     };
 
     return (
-        <section id="home" className='min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white flex items-center justify-center relative overflow-hidden'>
-            {/* Animated Background */}
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-20 -right-20 sm:-top-40 sm:-right-40 w-40 h-40 sm:w-80 sm:h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-                <div className="absolute -bottom-20 -left-20 sm:-bottom-40 sm:-left-40 w-40 h-40 sm:w-80 sm:h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-80 sm:h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-            </div>
-
+        <section id="home" className='min-h-screen text-white flex items-center justify-center relative'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative z-10'>
                 <div className='flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12'>
-                    {/* Content */}
-                    <div className='w-full lg:w-1/2 text-center lg:text-left'>
+                    {/* Content - Animate from left */}
+                    <ScrollAnimation direction="left" delay={200} className='w-full lg:w-1/2 text-center lg:text-left'>
                         <div className='mb-4 sm:mb-6'>
                             <p className='text-sm sm:text-base lg:text-lg text-gray-300 mb-2'>Hello, I'm</p>
                             <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-3 sm:mb-4 leading-tight'>
-                                <span className='bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent'>
+                                <span className='bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap'>
                                     Virtus Dakura
                                 </span>
                             </h1>
@@ -90,7 +84,7 @@ const Hero = () => {
                             </button>
                             <button className='border-2 border-gray-600 text-gray-300 hover:border-white hover:text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base w-full sm:w-auto'>
                                 <FaDownload />
-                                Download CV
+                                Download Resume
                             </button>
                         </div>
 
@@ -105,10 +99,10 @@ const Hero = () => {
                                 <FaLinkedin />
                             </a>
                         </div>
-                    </div>
+                    </ScrollAnimation>
 
-                    {/* Image */}
-                    <div className='w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0'>
+                    {/* Image - Animate from right */}
+                    <ScrollAnimation direction="right" delay={400} className='w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0'>
                         <div className='relative'>
                             <div className='absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-xl opacity-30 animate-pulse'></div>
                             <img 
@@ -117,7 +111,7 @@ const Hero = () => {
                                 className='relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 xl:w-[28rem] xl:h-[28rem] 2xl:w-[32rem] 2xl:h-[32rem] rounded-full object-cover border-4 border-gray-700 shadow-2xl transform hover:scale-105 transition-transform duration-300'
                             />
                         </div>
-                    </div>
+                    </ScrollAnimation>
                 </div>
 
                 {/* Scroll Indicator */}
