@@ -119,41 +119,41 @@ const Contact = () => {
     ];
 
     return (
-        <section id='contact' className='bg-black text-white pt-20 pb-8'>
-            <div className='container mx-auto px-6 md:px-16 lg:px-24'>
-                <div className='text-center mb-16'>
-                    <h2 className='text-4xl md:text-5xl font-bold mb-4'>
+        <section id='contact' className='bg-black text-white pt-12 sm:pt-16 lg:pt-20 pb-8'>
+            <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32'>
+                <div className='text-center mb-12 sm:mb-16'>
+                    <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
                         Get In <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Touch</span>
                     </h2>
-                    <p className='text-gray-400 text-lg max-w-2xl mx-auto'>
+                    <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0'>
                         Ready to start your next project? Let's discuss how we can work together to bring your ideas to life.
                     </p>
                 </div>
 
-                <div className='grid lg:grid-cols-2 gap-16'>
+                <div className='grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16'>
                     {/* Contact Information */}
-                    <div>
-                        <h3 className='text-2xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
+                    <div className='px-2 sm:px-0'>
+                        <h3 className='text-xl sm:text-2xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
                             Let's Connect
                         </h3>
                         
-                        <p className='text-gray-400 mb-8 leading-relaxed'>
+                        <p className='text-gray-400 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base'>
                             I'm always open to discussing new opportunities, innovative projects, and interesting challenges. 
                             Whether you have a question or just want to say hi, I'll do my best to get back to you!
                         </p>
 
                         {/* Contact Details */}
-                        <div className='space-y-6 mb-8'>
+                        <div className='space-y-4 sm:space-y-6 mb-6 sm:mb-8'>
                             {contactInfo.map((item, index) => (
                                 <div key={index} className='flex items-center group'>
-                                    <div className='w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mr-4 group-hover:bg-gray-700 transition-colors duration-300'>
-                                        <span className='text-xl'>{item.icon}</span>
+                                    <div className='w-10 h-10 sm:w-12 sm:h-12 bg-gray-800 rounded-full flex items-center justify-center mr-3 sm:mr-4 group-hover:bg-gray-700 transition-colors duration-300'>
+                                        <span className='text-lg sm:text-xl'>{item.icon}</span>
                                     </div>
                                     <div>
-                                        <p className='text-gray-500 text-sm'>{item.label}</p>
+                                        <p className='text-gray-500 text-xs sm:text-sm'>{item.label}</p>
                                         <a 
                                             href={item.link} 
-                                            className='text-white hover:text-blue-400 transition-colors duration-300'
+                                            className='text-white hover:text-blue-400 transition-colors duration-300 text-sm sm:text-base'
                                         >
                                             {item.value}
                                         </a>
@@ -164,7 +164,7 @@ const Contact = () => {
 
                         {/* Social Links */}
                         <div>
-                            <h4 className='text-lg font-semibold mb-4 text-gray-300'>Follow Me</h4>
+                            <h4 className='text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-300'>Follow Me</h4>
                             <div className='flex space-x-4'>
                                 {socialLinks.map((social, index) => (
                                     <a
@@ -172,10 +172,10 @@ const Contact = () => {
                                         href={social.url}
                                         target='_blank'
                                         rel='noopener noreferrer'
-                                        className={`w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:transform hover:scale-110 cursor-pointer`}
+                                        className={`w-10 h-10 sm:w-12 sm:h-12 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:transform hover:scale-110 cursor-pointer`}
                                         title={social.label}
                                     >
-                                        <span className='text-xl'>{social.icon}</span>
+                                        <span className='text-lg sm:text-xl'>{social.icon}</span>
                                     </a>
                                 ))}
                             </div>
@@ -183,23 +183,23 @@ const Contact = () => {
                     </div>
 
                     {/* Contact Form */}
-                    <div className='bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800'>
-                        <h3 className='text-2xl font-bold mb-6 text-white'>Send a Message</h3>
+                    <div className='bg-gray-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-800'>
+                        <h3 className='text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white'>Send a Message</h3>
                         
                         {submitStatus === 'success' && (
-                            <div className='mb-6 p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400'>
+                            <div className='mb-4 sm:mb-6 p-3 sm:p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400 text-sm sm:text-base'>
                                 Thank you! Your message has been sent successfully.
                             </div>
                         )}
                         
                         {submitStatus === 'error' && (
-                            <div className='mb-6 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400'>
+                            <div className='mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400 text-sm sm:text-base'>
                                 Sorry, there was an error sending your message. Please try again.
                             </div>
                         )}
 
-                        <form onSubmit={handleSubmit} className='space-y-6'>
-                            <div className='grid md:grid-cols-2 gap-6'>
+                        <form onSubmit={handleSubmit} className='space-y-4 sm:space-y-6'>
+                            <div className='grid md:grid-cols-2 gap-4 sm:gap-6'>
                                 <div>
                                     <label htmlFor='name' className='block text-sm font-medium text-gray-300 mb-2'>
                                         Full Name *
@@ -210,12 +210,12 @@ const Contact = () => {
                                         name='name'
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className={`w-full px-4 py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 ${
+                                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 text-sm sm:text-base ${
                                             errors.name ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
                                         }`}
                                         placeholder='Enter your name'
                                     />
-                                    {errors.name && <p className='mt-1 text-sm text-red-400'>{errors.name}</p>}
+                                    {errors.name && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.name}</p>}
                                 </div>
 
                                 <div>
@@ -228,12 +228,12 @@ const Contact = () => {
                                         name='email'
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className={`w-full px-4 py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 ${
+                                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 text-sm sm:text-base ${
                                             errors.email ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
                                         }`}
                                         placeholder='Enter your email'
                                     />
-                                    {errors.email && <p className='mt-1 text-sm text-red-400'>{errors.email}</p>}
+                                    {errors.email && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.email}</p>}
                                 </div>
                             </div>
 
@@ -247,12 +247,12 @@ const Contact = () => {
                                     name='subject'
                                     value={formData.subject}
                                     onChange={handleChange}
-                                    className={`w-full px-4 py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 ${
+                                    className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 text-sm sm:text-base ${
                                         errors.subject ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
                                     }`}
                                     placeholder='What is this about?'
                                 />
-                                {errors.subject && <p className='mt-1 text-sm text-red-400'>{errors.subject}</p>}
+                                {errors.subject && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.subject}</p>}
                             </div>
 
                             <div>
@@ -264,19 +264,19 @@ const Contact = () => {
                                     name='message'
                                     value={formData.message}
                                     onChange={handleChange}
-                                    rows={5}
-                                    className={`w-full px-4 py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 resize-none ${
+                                    rows={4}
+                                    className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 resize-none text-sm sm:text-base ${
                                         errors.message ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
                                     }`}
                                     placeholder='Tell me about your project...'
                                 />
-                                {errors.message && <p className='mt-1 text-sm text-red-400'>{errors.message}</p>}
+                                {errors.message && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.message}</p>}
                             </div>
 
                             <button
                                 type='submit'
                                 disabled={isSubmitting}
-                                className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-medium transition-all duration-300 ${
+                                className={`w-full flex items-center justify-center gap-2 py-2 px-4 sm:py-3 sm:px-6 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
                                     isSubmitting
                                         ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
                                         : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 cursor-pointer'
@@ -284,7 +284,7 @@ const Contact = () => {
                             >
                                 {isSubmitting ? (
                                     <>
-                                        <div className='w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin'></div>
+                                        <div className='w-4 h-4 sm:w-5 sm:h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin'></div>
                                         Sending...
                                     </>
                                 ) : (

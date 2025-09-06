@@ -32,18 +32,18 @@ const About = () => {
     ];
 
     return (
-        <section id='about' className='bg-gray-900 text-white py-20'>
-            <div className='container mx-auto px-6 md:px-16 lg:px-24'>
-                <div className='text-center mb-16'>
-                    <h2 className='text-4xl md:text-5xl font-bold mb-4'>
+        <section id='about' className='bg-gray-900 text-white py-12 sm:py-16 lg:py-20'>
+            <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32'>
+                <div className='text-center mb-12 sm:mb-16'>
+                    <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
                         About <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Me</span>
                     </h2>
-                    <p className='text-gray-400 text-lg max-w-2xl mx-auto'>
+                    <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0'>
                         Passionate software engineer with expertise in modern web technologies
                     </p>
                 </div>
 
-                <div className='grid lg:grid-cols-2 gap-16 items-center mb-16'>
+                <div className='grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center mb-12 sm:mb-16'>
                     {/* Image and Stats */}
                     <div className='relative'>
                         <div className='relative group'>
@@ -51,53 +51,53 @@ const About = () => {
                             <img 
                                 src={AboutImage} 
                                 alt="About Virtus Dakura" 
-                                className='relative w-full h-96 rounded-2xl object-cover shadow-2xl'
+                                className='relative w-full h-64 sm:h-80 lg:h-96 rounded-2xl object-cover shadow-2xl'
                             />
                         </div>
                         
                         {/* Stats */}
-                        <div className='grid grid-cols-2 gap-4 mt-8'>
+                        <div className='grid grid-cols-2 gap-3 sm:gap-4 mt-6 sm:mt-8'>
                             {stats.map((stat, index) => (
-                                <div key={index} className='bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 text-center border border-gray-700'>
-                                    <h3 className='text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
+                                <div key={index} className='bg-gray-800/50 backdrop-blur-sm rounded-xl p-3 sm:p-4 text-center border border-gray-700'>
+                                    <h3 className='text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
                                         {stat.number}
                                     </h3>
-                                    <p className='text-gray-400 text-sm'>{stat.label}</p>
+                                    <p className='text-gray-400 text-xs sm:text-sm'>{stat.label}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     {/* Content */}
-                    <div>
-                        <h3 className='text-2xl font-bold mb-6 text-gray-200'>
+                    <div className='px-2 sm:px-0'>
+                        <h3 className='text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-200'>
                             Crafting Digital Solutions with Modern Technologies
                         </h3>
-                        <p className='text-gray-400 mb-6 leading-relaxed'>
+                        <p className='text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base'>
                             I'm a passionate software engineer specializing in full-stack web development. 
                             With expertise in modern technologies like React, Node.js, and Python, I create 
                             scalable applications that solve real-world problems.
                         </p>
-                        <p className='text-gray-400 mb-8 leading-relaxed'>
+                        <p className='text-gray-400 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base'>
                             My approach combines clean code practices with innovative thinking to deliver 
                             exceptional user experiences. I'm always exploring new technologies and 
                             methodologies to stay at the forefront of software development.
                         </p>
 
                         {/* Skills */}
-                        <div className='space-y-4'>
+                        <div className='space-y-3 sm:space-y-4'>
                             {skills.map((skill, index) => (
                                 <div key={index} className='group'>
                                     <div className='flex items-center justify-between mb-2'>
                                         <div className='flex items-center gap-2'>
-                                            <span className='text-xl'>{skill.icon}</span>
-                                            <span className='font-medium text-gray-300'>{skill.name}</span>
+                                            <span className='text-lg sm:text-xl'>{skill.icon}</span>
+                                            <span className='font-medium text-gray-300 text-sm sm:text-base'>{skill.name}</span>
                                         </div>
-                                        <span className='text-sm text-gray-400'>{skill.level}%</span>
+                                        <span className='text-xs sm:text-sm text-gray-400'>{skill.level}%</span>
                                     </div>
-                                    <div className='w-full bg-gray-800 rounded-full h-2'>
+                                    <div className='w-full bg-gray-800 rounded-full h-1.5 sm:h-2'>
                                         <div 
-                                            className='bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 group-hover:shadow-lg group-hover:shadow-blue-500/25'
+                                            className='bg-gradient-to-r from-blue-500 to-purple-600 h-1.5 sm:h-2 rounded-full transition-all duration-1000 group-hover:shadow-lg group-hover:shadow-blue-500/25'
                                             style={{ width: `${skill.level}%` }}
                                         ></div>
                                     </div>
@@ -109,15 +109,35 @@ const About = () => {
 
                 {/* Tech Stack */}
                 <div className='text-center'>
-                    <h3 className='text-2xl font-bold mb-8 text-gray-200'>Technologies I Work With</h3>
-                    <div className='grid grid-cols-4 md:grid-cols-8 gap-6'>
+                    <h3 className='text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-gray-200'>Technologies I Work With</h3>
+                    
+                    {/* Mobile/Tablet Horizontal Scroll */}
+                    <div className='lg:hidden overflow-x-auto pb-4 scroll-smooth'>
+                        <div className='flex space-x-4 sm:space-x-6 min-w-max justify-center'>
+                            {techStack.map((tech, index) => (
+                                <div key={index} className='group flex-shrink-0'>
+                                    <div className='bg-gray-800/50 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-gray-700 hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-110 w-20 sm:w-24'>
+                                        <div className='text-2xl sm:text-3xl mb-2 flex justify-center'>
+                                            {tech.icon}
+                                        </div>
+                                        <p className='text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300 text-center'>
+                                            {tech.name}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Desktop Grid */}
+                    <div className='hidden lg:grid lg:grid-cols-8 gap-4 sm:gap-6'>
                         {techStack.map((tech, index) => (
                             <div key={index} className='group'>
-                                <div className='bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-110'>
-                                    <div className='text-3xl mb-2 flex justify-center'>
+                                <div className='bg-gray-800/50 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-gray-700 hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-110'>
+                                    <div className='text-2xl sm:text-3xl mb-2 flex justify-center'>
                                         {tech.icon}
                                     </div>
-                                    <p className='text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300'>
+                                    <p className='text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300 text-center'>
                                         {tech.name}
                                     </p>
                                 </div>
