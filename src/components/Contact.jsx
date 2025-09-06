@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaPhone, FaMapMarkedAlt, FaLinkedin, FaGithub, FaPaperPlane, FaHeart, FaArrowUp } from 'react-icons/fa';
 
 const Contact = () => {
@@ -11,6 +11,27 @@ const Contact = () => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState('');
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Check if mobile menu is open by monitoring body overflow
+    useEffect(() => {
+        const checkMobileMenu = () => {
+            const bodyOverflow = document.body.style.overflow;
+            setIsMobileMenuOpen(bodyOverflow === 'hidden');
+        };
+
+        // Create observer for body style changes
+        const observer = new MutationObserver(checkMobileMenu);
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
+
+        // Initial check
+        checkMobileMenu();
+
+        return () => observer.disconnect();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -313,7 +334,9 @@ const Contact = () => {
             {/* Scroll to Top Button */}
             <button
                 onClick={scrollToTop}
-                className='fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg flex items-center justify-center shadow-lg hover:shadow-blue-500/25 transform hover:scale-110 transition-all duration-300 z-50 cursor-pointer'
+                className={`fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg flex items-center justify-center shadow-lg hover:shadow-blue-500/25 transform hover:scale-110 transition-all duration-500 z-50 cursor-pointer ${
+                    isMobileMenuOpen ? 'opacity-0 pointer-events-none translate-y-4' : 'opacity-100 pointer-events-auto translate-y-0'
+                }`}
                 title='Scroll to top'
             >
                 <FaArrowUp />
