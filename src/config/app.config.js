@@ -46,6 +46,11 @@ export const APP_CONFIG = {
   author: 'Virtus Dakura',
   description: 'Modern portfolio showcasing software engineering expertise',
   url: 'https://virtusdakura.dev', // Update with your domain
+  buildInfo: {
+    environment: import.meta.env.MODE || 'development',
+    timestamp: new Date().toISOString(),
+    commit: import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA?.substring(0, 7) || 'unknown'
+  },
   social: {
     github: 'https://github.com/VirtusDakura',
     linkedin: 'https://linkedin.com/in/virtusdakura',

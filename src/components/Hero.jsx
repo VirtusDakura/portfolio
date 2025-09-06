@@ -69,10 +69,21 @@ const Hero = () => {
                             </div>
                         </div>
 
-                        <p className='text-sm sm:text-base lg:text-lg text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-2 sm:px-0'>
+                        <p className='text-sm sm:text-base lg:text-lg text-gray-400 mb-4 sm:mb-6 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-2 sm:px-0'>
                             Passionate software engineer crafting innovative solutions with modern technologies. 
                             I build scalable applications and love solving complex problems through clean, efficient code.
                         </p>
+                        
+                        {/* CI/CD Test Indicator */}
+                        <div className='text-xs text-gray-500 mb-4 sm:mb-6 text-center lg:text-left px-2 sm:px-0'>
+                            🚀 Live Build: {new Date().toLocaleString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric', 
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}
+                        </div>
 
                         {/* Action Buttons */}
                         <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-2 sm:px-0'>
