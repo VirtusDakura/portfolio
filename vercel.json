@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "name": "virtus-dakura-portfolio",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "@api_base_url",
+    "VITE_EMAILJS_SERVICE_ID": "@emailjs_service_id",
+    "VITE_EMAILJS_TEMPLATE_ID": "@emailjs_template_id",
+    "VITE_EMAILJS_PUBLIC_KEY": "@emailjs_public_key",
+    "VITE_ENABLE_CONTACT_FORM": "true",
+    "VITE_ENABLE_ANALYTICS": "false"
+  }
+}
