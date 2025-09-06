@@ -81,14 +81,14 @@ const Hero = () => {
                         </p>
 
                         {/* Action Buttons */}
-                        <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0'>
+                        <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-2 sm:px-0'>
                             <button 
                                 onClick={() => scrollToSection('projects')}
-                                className='bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 flex items-center gap-2 cursor-pointer text-sm sm:text-base'
+                                className='bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base w-full sm:w-auto'
                             >
                                 View My Work
                             </button>
-                            <button className='border-2 border-gray-600 text-gray-300 hover:border-white hover:text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-2 cursor-pointer text-sm sm:text-base'>
+                            <button className='border-2 border-gray-600 text-gray-300 hover:border-white hover:text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base w-full sm:w-auto'>
                                 <FaDownload />
                                 Download CV
                             </button>

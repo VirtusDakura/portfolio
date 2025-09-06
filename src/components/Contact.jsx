@@ -321,11 +321,13 @@ const Contact = () => {
 
                 {/* Copyright Section */}
                 <div className='border-t border-gray-800 mt-12 pt-6'>
-                    <div className='flex justify-center items-center'>
-                        <div className='flex items-center text-gray-400 text-sm'>
-                            <span>&copy; {new Date().getFullYear()} Virtus Dakura. Made with</span>
-                            <FaHeart className='text-red-500 mx-2 animate-pulse' />
-                            <span>All rights reserved.</span>
+                    <div className='flex justify-center items-center px-4'>
+                        <div className='flex flex-col sm:flex-row items-center justify-center text-gray-400 text-xs sm:text-sm text-center'>
+                            <div className='flex items-center'>
+                                <span>&copy; {new Date().getFullYear()} Virtus Dakura. Made with</span>
+                                <FaHeart className='text-red-500 mx-1 sm:mx-2 animate-pulse' />
+                            </div>
+                            <span className='mt-1 sm:mt-0'>All rights reserved.</span>
                         </div>
                     </div>
                 </div>
