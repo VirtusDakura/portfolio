@@ -119,7 +119,7 @@ const Contact = () => {
     ];
 
     return (
-        <section id='contact' className='bg-black text-white py-20'>
+        <section id='contact' className='bg-black text-white pt-20 pb-8'>
             <div className='container mx-auto px-6 md:px-16 lg:px-24'>
                 <div className='text-center mb-16'>
                     <h2 className='text-4xl md:text-5xl font-bold mb-4'>
@@ -299,7 +299,7 @@ const Contact = () => {
                 </div>
 
                 {/* Copyright Section */}
-                <div className='border-t border-gray-800 mt-20 pt-8'>
+                <div className='border-t border-gray-800 mt-12 pt-6'>
                     <div className='flex justify-center items-center'>
                         <div className='flex items-center text-gray-400 text-sm'>
                             <span>&copy; {new Date().getFullYear()} Virtus Dakura. Made with</span>
