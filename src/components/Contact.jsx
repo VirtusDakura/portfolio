@@ -198,7 +198,7 @@ const Contact = () => {
                 <div className='grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16'>
                     {/* Contact Information */}
                     <ScrollAnimation direction="left">
-                        <div className='px-2 sm:px-0'>
+                        <div className='px-2 sm:px-0 text-center lg:text-left'>
                         <h3 className='text-xl sm:text-2xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
                             Let's Connect
                         </h3>
@@ -211,9 +211,9 @@ const Contact = () => {
                         {/* Contact Details */}
                         <div className='space-y-4 sm:space-y-6 mb-6 sm:mb-8'>
                             {contactInfo.map((item, index) => (
-                                <div key={index} className='flex items-center group'>
-                                    <div className='w-10 h-10 sm:w-12 sm:h-12 bg-gray-800 rounded-full flex items-center justify-center mr-3 sm:mr-4 group-hover:bg-gray-700 transition-colors duration-300'>
-                                        <span className='text-lg sm:text-xl'>{item.icon}</span>
+                                <div key={index} className='flex items-center group justify-center lg:justify-start'>
+                                    <div className='w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-full flex items-center justify-center mr-3 sm:mr-4 group-hover:bg-gray-700 transition-colors duration-300'>
+                                        <span className='text-sm sm:text-lg'>{item.icon}</span>
                                     </div>
                                     <div>
                                         <p className='text-gray-500 text-xs sm:text-sm'>{item.label}</p>
@@ -229,19 +229,19 @@ const Contact = () => {
                         </div>
 
                         {/* Social Links */}
-                        <div>
+                        <div className='text-center lg:text-left'>
                             <h4 className='text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-300'>Follow Me</h4>
-                            <div className='flex space-x-4'>
+                            <div className='flex space-x-4 justify-center lg:justify-start'>
                                 {socialLinks.map((social, index) => (
                                     <a
                                         key={index}
                                         href={social.url}
                                         target='_blank'
                                         rel='noopener noreferrer'
-                                        className={`w-10 h-10 sm:w-12 sm:h-12 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:transform hover:scale-110 cursor-pointer`}
+                                        className={`w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:transform hover:scale-110 cursor-pointer`}
                                         title={social.label}
                                     >
-                                        <span className='text-lg sm:text-xl'>{social.icon}</span>
+                                        <span className='text-sm sm:text-lg'>{social.icon}</span>
                                     </a>
                                 ))}
                             </div>

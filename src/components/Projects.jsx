@@ -115,14 +115,14 @@ const Projects = () => {
                 <ScrollAnimation direction="left">
                     <div className='lg:hidden'>
                         <div className='relative'>
-                            {/* Left scroll indicator arrow */}
+                            {/* Enhanced scroll indicators with bouncing animation */}
                             <div className='absolute left-2 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none'>
-                                <div className='text-blue-400 text-2xl animate-pulse font-bold'>‹</div>
+                                <div className='text-blue-400 text-3xl animate-bounce font-bold'>‹</div>
                             </div>
                             
                             {/* Right scroll indicator arrow */}
                             <div className='absolute right-2 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none'>
-                                <div className='text-purple-400 text-2xl animate-pulse font-bold'>›</div>
+                                <div className='text-purple-400 text-3xl animate-bounce font-bold'>›</div>
                             </div>
                             
                             <div className='overflow-x-auto pb-4 scroll-smooth scrollbar-hide'>
