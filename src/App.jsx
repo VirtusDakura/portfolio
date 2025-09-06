@@ -3,7 +3,6 @@ import React from 'react';
 // Component imports - organized by functionality
 import Navbar from './components/Navbar';
 import TechBackground from './components/TechBackground';
-import DeploymentInfo from './components/DeploymentInfo';
 
 // Page sections
 import Hero from './components/Hero';
@@ -59,9 +58,6 @@ function App() {
           <Contact />
         </TechBackground>
       </main>
-      
-      {/* Deployment Info - CI/CD Testing */}
-      <DeploymentInfo />
     </div>
   );
 }
