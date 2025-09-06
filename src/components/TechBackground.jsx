@@ -1,6 +1,29 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
 
+/**
+ * TechBackground Component
+ * 
+ * A sophisticated animated background component that creates an immersive tech aesthetic
+ * with floating particles, animated grids, glowing orbs, and scanning lines.
+ * Each section can have unique configurations for visual variety.
+ * 
+ * Features:
+ * - Section-specific color schemes and animations
+ * - Performance optimizations with reduced motion support
+ * - Responsive design with device-specific optimizations
+ * - Memory-efficient particle management
+ * 
+ * @component
+ * @example
+ * return (
+ *   <TechBackground section="hero">
+ *     <div>Your content here</div>
+ *   </TechBackground>
+ * )
+ */
 const TechBackground = ({ children, section = 'default' }) => {
+    // State management for animations and performance
     const [isVisible, setIsVisible] = useState(false);
     const [animationsEnabled, setAnimationsEnabled] = useState(true);
 
@@ -251,6 +274,14 @@ const TechBackground = ({ children, section = 'default' }) => {
             </div>
         </div>
     );
+};
+
+// PropTypes for type checking and documentation
+TechBackground.propTypes = {
+    /** Content to be rendered with the tech background */
+    children: PropTypes.node.isRequired,
+    /** Section identifier for different visual configurations */
+    section: PropTypes.oneOf(['hero', 'about', 'services', 'projects', 'contact', 'default'])
 };
 
 export default TechBackground;
