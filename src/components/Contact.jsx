@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEnvelope, FaPhone, FaMapMarkedAlt, FaLinkedin, FaGithub, FaTwitter, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkedAlt, FaLinkedin, FaGithub, FaPaperPlane, FaHeart, FaArrowUp } from 'react-icons/fa';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -78,6 +78,10 @@ const Contact = () => {
         }
     };
 
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const contactInfo = [
         {
             icon: <FaEnvelope className="text-blue-500" />,
@@ -111,12 +115,6 @@ const Contact = () => {
             label: 'GitHub',
             url: 'https://github.com/VirtusDakura',
             color: 'hover:text-gray-300'
-        },
-        {
-            icon: <FaTwitter />,
-            label: 'Twitter',
-            url: 'https://twitter.com/virtusdakura',
-            color: 'hover:text-blue-400'
         }
     ];
 
@@ -299,7 +297,27 @@ const Contact = () => {
                         </form>
                     </div>
                 </div>
+
+                {/* Copyright Section */}
+                <div className='border-t border-gray-800 mt-20 pt-8'>
+                    <div className='flex justify-center items-center'>
+                        <div className='flex items-center text-gray-400 text-sm'>
+                            <span>&copy; {new Date().getFullYear()} Virtus Dakura. Made with</span>
+                            <FaHeart className='text-red-500 mx-2 animate-pulse' />
+                            <span>All rights reserved.</span>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            {/* Scroll to Top Button */}
+            <button
+                onClick={scrollToTop}
+                className='fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-blue-500/25 transform hover:scale-110 transition-all duration-300 z-50'
+                title='Scroll to top'
+            >
+                <FaArrowUp />
+            </button>
         </section>
     );
 };
