@@ -96,7 +96,7 @@ const Projects = () => {
                             <button
                                 key={category}
                                 onClick={() => setFilter(category)}
-                                className={`px-6 py-2 rounded-full transition-all duration-300 ${
+                                className={`px-6 py-2 rounded-lg transition-all duration-300 cursor-pointer ${
                                     filter === category
                                         ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
                                         : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'
@@ -137,7 +137,7 @@ const Projects = () => {
                                             href={project.github} 
                                             target='_blank' 
                                             rel='noopener noreferrer'
-                                            className='bg-black/50 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/70 transition-all duration-300'
+                                            className='bg-black/50 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-black/70 transition-all duration-300 cursor-pointer'
                                         >
                                             <FaGithub size={16} />
                                         </a>
@@ -145,7 +145,7 @@ const Projects = () => {
                                             href={project.demo} 
                                             target='_blank' 
                                             rel='noopener noreferrer'
-                                            className='bg-black/50 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/70 transition-all duration-300'
+                                            className='bg-black/50 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-black/70 transition-all duration-300 cursor-pointer'
                                         >
                                             <FaExternalLinkAlt size={16} />
                                         </a>
@@ -182,7 +182,7 @@ const Projects = () => {
                                 <div className='flex justify-between items-center'>
                                     <button 
                                         onClick={() => openModal(project)}
-                                        className='text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors duration-300'
+                                        className='text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors duration-300 cursor-pointer'
                                     >
                                         View Details →
                                     </button>
@@ -216,7 +216,7 @@ const Projects = () => {
                         href='https://github.com/VirtusDakura' 
                         target='_blank' 
                         rel='noopener noreferrer'
-                        className='inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300'
+                        className='inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 cursor-pointer'
                     >
                         <FaGithub />
                         View All Projects
@@ -236,7 +236,7 @@ const Projects = () => {
                             />
                             <button 
                                 onClick={closeModal}
-                                className='absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/70 transition-all duration-300'
+                                className='absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-black/70 transition-all duration-300 cursor-pointer'
                             >
                                 ✕
                             </button>
@@ -261,7 +261,7 @@ const Projects = () => {
                                     href={selectedProject.github} 
                                     target='_blank' 
                                     rel='noopener noreferrer'
-                                    className='flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-full transition-all duration-300'
+                                    className='flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-all duration-300 cursor-pointer'
                                 >
                                     <FaGithub />
                                     View Code
@@ -270,7 +270,7 @@ const Projects = () => {
                                     href={selectedProject.demo} 
                                     target='_blank' 
                                     rel='noopener noreferrer'
-                                    className='flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full transition-all duration-300'
+                                    className='flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg transition-all duration-300 cursor-pointer'
                                 >
                                     <FaExternalLinkAlt />
                                     Live Demo

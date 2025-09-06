@@ -172,7 +172,7 @@ const Contact = () => {
                                         href={social.url}
                                         target='_blank'
                                         rel='noopener noreferrer'
-                                        className={`w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:transform hover:scale-110`}
+                                        className={`w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:transform hover:scale-110 cursor-pointer`}
                                         title={social.label}
                                     >
                                         <span className='text-xl'>{social.icon}</span>
@@ -279,7 +279,7 @@ const Contact = () => {
                                 className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-medium transition-all duration-300 ${
                                     isSubmitting
                                         ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                                        : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105'
+                                        : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 cursor-pointer'
                                 }`}
                             >
                                 {isSubmitting ? (
@@ -313,7 +313,7 @@ const Contact = () => {
             {/* Scroll to Top Button */}
             <button
                 onClick={scrollToTop}
-                className='fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-blue-500/25 transform hover:scale-110 transition-all duration-300 z-50'
+                className='fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg flex items-center justify-center shadow-lg hover:shadow-blue-500/25 transform hover:scale-110 transition-all duration-300 z-50 cursor-pointer'
                 title='Scroll to top'
             >
                 <FaArrowUp />

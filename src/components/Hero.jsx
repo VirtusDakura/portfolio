@@ -84,11 +84,11 @@ const Hero = () => {
                         <div className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8'>
                             <button 
                                 onClick={() => scrollToSection('projects')}
-                                className='bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 flex items-center gap-2'
+                                className='bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 flex items-center gap-2 cursor-pointer'
                             >
                                 View My Work
                             </button>
-                            <button className='border-2 border-gray-600 text-gray-300 hover:border-white hover:text-white px-8 py-3 rounded-full transform hover:scale-105 transition-all duration-300 flex items-center gap-2'>
+                            <button className='border-2 border-gray-600 text-gray-300 hover:border-white hover:text-white px-8 py-3 rounded-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-2 cursor-pointer'>
                                 <FaDownload />
                                 Download CV
                             </button>

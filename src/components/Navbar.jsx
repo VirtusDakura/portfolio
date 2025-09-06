@@ -50,7 +50,7 @@ const Navbar = () => {
           {/* CTA Button */}
           <button 
             onClick={() => scrollToSection('contact')}
-            className='hidden md:block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300'
+            className='hidden md:block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 cursor-pointer'
           >
             Let's Talk
           </button>
