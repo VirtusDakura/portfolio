@@ -27,13 +27,13 @@ import Contact from './components/Contact';
  */
 function App() {
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden">
       {/* Fixed Navigation */}
       <Navbar />
       
-      {/* Main Content Sections */}
-      <main>
-        {/* Hero Section - Landing/Introduction */}
+      {/* Main Content - Ensure proper spacing for fixed navbar */}
+      <main className="relative">
+        {/* Hero Section - Full Screen Landing */}
         <TechBackground section="hero">
           <Hero />
         </TechBackground>

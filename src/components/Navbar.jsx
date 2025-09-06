@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className={`container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 transition-all duration-500 ${
           isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
         }`}>
-          <div className='flex justify-between items-center py-3 sm:py-4'>
+          <div className='flex justify-between items-center h-16 sm:h-18 md:h-20'>
             {/* Logo */}
             <div className='text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
               &lt;Virtus/&gt;
@@ -75,7 +75,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button - Always Visible */}
-        <div className='lg:hidden absolute top-3 sm:top-4 right-4 sm:right-6 md:right-8'>
+        <div className='lg:hidden absolute top-1/2 -translate-y-1/2 right-4 sm:right-6 md:right-8'>
           <button
             className='text-white focus:outline-none p-2 relative z-50 group'
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

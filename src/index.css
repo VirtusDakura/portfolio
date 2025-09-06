@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+/* Mobile-first responsive fixes */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+  /* Improve touch scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure viewport units work correctly on mobile */
+#root {
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for better mobile support */
+  overflow-x: hidden;
+}
+
 /* Custom animations */
 @keyframes blob {
   0% {
@@ -41,6 +69,37 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Mobile Safari viewport fix */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Touch-friendly improvements */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Ensure proper scaling on mobile */
+@media screen and (max-width: 768px) {
+  /* Prevent zoom on input focus in iOS Safari */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
 }
 
 /* Custom scrollbar */

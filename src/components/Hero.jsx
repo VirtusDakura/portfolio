@@ -51,7 +51,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="home" className='min-h-screen text-white flex items-center justify-center relative'>
+        <section id="home" className='min-h-screen text-white flex items-center justify-center relative pt-20 sm:pt-24 md:pt-28 lg:pt-20'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative z-10'>
                 <div className='flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12'>
                     {/* Content - Animate from left */}
