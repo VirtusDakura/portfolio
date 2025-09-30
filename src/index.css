@@ -198,3 +198,53 @@ button, a {
   }
 }
 
+
+/* ----------------------------- */
+/* Mobile Tech Marquee Styles */
+/* ----------------------------- */
+
+/* The marquee track moves continuously from right to left. We set a slow duration
+   and duplicate items in the markup for a seamless loop. */
+@keyframes marqueeMove {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.mobile-marquee {
+  --marquee-speed: 30s; /* adjust for faster/slower */
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 1.5rem;
+  align-items: center;
+  will-change: transform;
+  animation: marqueeMove var(--marquee-speed) linear infinite;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+/* Pause on hover or touch (touchstart will set a CSS class via JS if needed) */
+.marquee-track:hover,
+.marquee-track:active,
+.marquee-track.paused {
+  animation-play-state: paused;
+}
+
+/* Ensure the marquee is mobile-only: hide on large screens */
+@media (min-width: 1024px) {
+  .mobile-marquee { display: none !important; }
+}
+
+/* Shorter marquee on very small phones */
+@media (max-width: 360px) {
+  .mobile-marquee { --marquee-speed: 24s; }
+  .marquee-item img { width: 20px; height: 20px; }
+  .marquee-item span { font-size: 11px; }
+}
+

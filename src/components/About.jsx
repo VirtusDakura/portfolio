@@ -104,35 +104,24 @@ const About = () => {
                                     Technologies I Work With
                                 </h4>
                                 
-                                {/* Mobile Horizontal Scroll - Small screens only */}
+                                {/* Mobile: infinite auto-scrolling marquee of tech cards (keeps same visuals) */}
                                 <div className='md:hidden relative mb-4'>
-                                    {/* Clean scroll indicators without gradient overlay */}
-                                    <div className='absolute left-2 top-1/2 transform -translate-y-1/2 z-20 pointer-events-none'>
-                                        <div className='text-blue-400 text-3xl animate-bounce font-bold'>‹</div>
-                                    </div>
-                                    
-                                    <div className='absolute right-2 top-1/2 transform -translate-y-1/2 z-20 pointer-events-none'>
-                                        <div className='text-purple-400 text-3xl animate-bounce font-bold'>›</div>
-                                    </div>
-                                    
-                                    <div className='overflow-x-auto pb-6 scroll-smooth scrollbar-hide px-4'>
-                                        <div className='flex space-x-4 sm:space-x-6 min-w-max'>
-                                            {/* Group technologies into pairs for mobile */}
-                                            {Array.from({ length: Math.ceil(techStack.length / 2) }, (_, i) => (
-                                                <div key={i} className='flex flex-col space-y-4 flex-shrink-0'>
-                                                    {techStack.slice(i * 2, i * 2 + 2).map((tech, index) => (
-                                                        <div key={i * 2 + index} className='group'>
-                                                            <div className='bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-gray-600 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 w-24 sm:w-28'>
-                                                                <div className='text-2xl sm:text-3xl mb-3 flex justify-center transform group-hover:scale-110 transition-transform duration-300'>
-                                                                    {tech.icon}
-                                                                </div>
-                                                                <p className='text-xs sm:text-sm text-gray-300 group-hover:text-white transition-colors duration-300 text-center font-medium'>
-                                                                    {tech.name}
-                                                                </p>
+                                    <div className='mobile-marquee overflow-hidden px-4'>
+                                        <div className='marquee-track flex items-center gap-4 min-w-[200%]' role='list' aria-label='Technologies I work with'>
+                                            {/* Duplicate the techStack for seamless loop */}
+                                            {Array.from({ length: 2 }).map((_, dup) => (
+                                                techStack.map((tech, index) => (
+                                                    <div key={`${dup}-${index}`} className='flex-shrink-0'>
+                                                        <div className='bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-gray-600 transition-all duration-300 transform-gpu w-24 sm:w-28'>
+                                                            <div className='text-2xl sm:text-3xl mb-3 flex justify-center'>
+                                                                {tech.icon}
                                                             </div>
+                                                            <p className='text-xs sm:text-sm text-gray-300 transition-colors duration-300 text-center font-medium'>
+                                                                {tech.name}
+                                                            </p>
                                                         </div>
-                                                    ))}
-                                                </div>
+                                                    </div>
+                                                ))
                                             ))}
                                         </div>
                                     </div>

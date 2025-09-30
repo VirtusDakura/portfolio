@@ -74,6 +74,8 @@ const Hero = () => {
                             I build scalable applications and love solving complex problems through clean, efficient code.
                         </p>
 
+                        {/* Mobile tech marquee moved to About.jsx */}
+
                         {/* Action Buttons */}
                         <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-2 sm:px-0'>
                             <button 
