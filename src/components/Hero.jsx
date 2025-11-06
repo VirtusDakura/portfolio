@@ -11,8 +11,8 @@ const Hero = () => {
     const roles = useMemo(() => [
         'Full-Stack Developer',
         'Software Engineer',
-        'React Specialist',
-        'Problem Solver'
+        // 'React Specialist',
+        // 'Problem Solver'
     ], []);
 
     useEffect(() => {
