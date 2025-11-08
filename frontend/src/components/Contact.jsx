@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaPhone, FaMapMarkedAlt, FaLinkedin, FaGithub, FaPaperPlane, FaHeart, FaArrowUp } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
+import { apiService } from '../utils/api';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -101,13 +102,19 @@ const Contact = () => {
         setSubmitStatus('');
         
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Call the Django backend API
+            const result = await apiService.sendContactForm(formData);
             
-            setSubmitStatus('success');
-            setFormData({ name: '', email: '', subject: '', message: '' });
-        } catch {
+            if (result.success) {
+                setSubmitStatus('success');
+                setFormData({ name: '', email: '', subject: '', message: '' });
+            } else {
+                setSubmitStatus('error');
+                console.error('Contact form error:', result.error);
+            }
+        } catch (error) {
             setSubmitStatus('error');
+            console.error('Contact form submission failed:', error);
         } finally {
             setIsSubmitting(false);
         }

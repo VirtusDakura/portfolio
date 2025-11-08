@@ -1,6 +1,6 @@
 # 🚀 Virtus Dakura Portfolio
 
-A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. Features immersive animations, a tech-aesthetic design, and comprehensive backend integration capabilities.
+A modern, full-stack portfolio website built with React, Vite, Tailwind CSS (frontend) and Django REST API (backend). Features immersive animations, a tech-aesthetic design, and comprehensive API integration.
 
 ![Portfolio Preview](./preview.png)
 
@@ -16,8 +16,16 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 - **React 19**: Latest React with modern hooks and best practices
 - **Vite**: Lightning-fast development and optimized builds
 - **Tailwind CSS**: Utility-first styling with custom animations
+- **Django REST Framework**: Robust backend API
 - **ESLint**: Code quality and consistency enforcement
 - **PropTypes**: Type checking for better developer experience
+
+### 🔌 Backend Integration
+- **Django REST API**: Full-featured backend on port 8000
+- **Contact Form**: Connected to Django backend with email notifications
+- **Admin Panel**: Content management through Django admin
+- **Sample Data**: Population command for quick setup
+- **API Documentation**: Available at `/api/`
 
 ### 🔗 Backend Ready
 - **API Integration**: Comprehensive API service layer
