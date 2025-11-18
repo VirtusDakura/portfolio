@@ -1,62 +1,46 @@
 import React, { useState } from 'react';
-import { FaGithub, FaExternalLinkAlt, FaReact, FaNodeJs, FaPython } from 'react-icons/fa';
-import { SiMongodb, SiExpress, SiTailwindcss, SiTypescript, SiNextdotjs, SiFirebase } from 'react-icons/si';
+import { FaGithub, FaExternalLinkAlt, FaReact, FaNodeJs, FaFigma } from 'react-icons/fa';
+import { SiPostgresql, SiExpress, SiTailwindcss, SiVite } from 'react-icons/si';
 import ScrollAnimation from './ScrollAnimation';
-import ProjectImage1 from '../assets/Project1.png';
-import ProjectImage2 from '../assets/Project2.png';
-import ProjectImage3 from '../assets/Project3.png';
+import PortfolioImage from '../assets/portfolio.png';
+import SanichFarmsImage from '../assets/sanichfarms.png';
 
 const projects = [
     {
         id: 1,
-        name: 'E-Commerce Platform',
-        description: 'A full-stack e-commerce solution with user authentication, payment processing, and admin dashboard. Features include shopping cart, order tracking, and inventory management.',
-        longDescription: 'Built with the MERN stack, this e-commerce platform includes advanced features like real-time inventory updates, secure payment processing with Stripe, user reviews, and a comprehensive admin panel for managing products and orders.',
+        name: 'Sanich Farms',
+        description: 'A comprehensive e-commerce and service platform for a poultry farming business, featuring product sales, farm services, and customer management.',
+        longDescription: 'Full-stack e-commerce and service platform developed for Sanich Farms, a poultry farming business. As the full-stack developer and project manager, I led a team to build a complete solution with product catalog, service booking, order management, and customer portal. Features include secure payment processing, real-time inventory tracking, service appointment scheduling, and an admin dashboard for business operations.',
         technologies: [
             { name: 'React', icon: <FaReact className="text-blue-500" /> },
+            { name: 'Vite', icon: <SiVite className="text-purple-500" /> },
+            { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-cyan-500" /> },
             { name: 'Node.js', icon: <FaNodeJs className="text-green-500" /> },
-            { name: 'MongoDB', icon: <SiMongodb className="text-green-600" /> },
-            { name: 'Express', icon: <SiExpress className="text-gray-400" /> }
+            { name: 'Express', icon: <SiExpress className="text-gray-400" /> },
+            { name: 'PostgreSQL', icon: <SiPostgresql className="text-blue-600" /> },
+            { name: 'Figma', icon: <FaFigma className="text-pink-500" /> }
         ],
-        image: ProjectImage1,
-        github: 'https://github.com/VirtusDakura/ecommerce-platform',
-        demo: 'https://ecommerce-demo.virtus.dev',
+        image: SanichFarmsImage,
+        github: 'https://github.com/Sprint-Force/Sanich-Farms',
+        demo: 'https://sanich-farms.vercel.app/',
         category: 'Full-Stack',
         featured: true
     },
     {
         id: 2,
-        name: 'Task Management App',
-        description: 'A collaborative task management application with real-time updates, team collaboration features, and progress tracking.',
-        longDescription: 'This project management tool allows teams to create, assign, and track tasks in real-time. Features include drag-and-drop kanban boards, time tracking, file uploads, and team chat functionality.',
+        name: 'Personal Portfolio',
+        description: 'A modern, responsive portfolio website showcasing my projects, skills, and experience with immersive animations and tech-aesthetic design.',
+        longDescription: 'My personal portfolio built with cutting-edge frontend technologies. Features include smooth scroll animations, dynamic particle backgrounds, responsive design optimized for all devices, and an interactive project showcase. The site demonstrates modern web development practices with performance optimization, accessibility features, and a futuristic tech aesthetic.',
         technologies: [
-            { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
-            { name: 'TypeScript', icon: <SiTypescript className="text-blue-600" /> },
-            { name: 'Firebase', icon: <SiFirebase className="text-orange-500" /> },
-            { name: 'Tailwind', icon: <SiTailwindcss className="text-cyan-500" /> }
+            { name: 'React', icon: <FaReact className="text-blue-500" /> },
+            { name: 'Vite', icon: <SiVite className="text-purple-500" /> },
+            { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-cyan-500" /> }
         ],
-        image: ProjectImage2,
-        github: 'https://github.com/VirtusDakura/task-manager',
-        demo: 'https://taskmanager.virtus.dev',
+        image: PortfolioImage,
+        github: 'https://github.com/VirtusDakura/portfolio',
+        demo: 'https://virtus-dakura.vercel.app/',
         category: 'Frontend',
         featured: true
-    },
-    {
-        id: 3,
-        name: 'AI Data Analytics Dashboard',
-        description: 'An intelligent dashboard for data visualization and analytics with machine learning insights and predictive modeling.',
-        longDescription: 'A comprehensive analytics platform that processes large datasets and provides actionable insights through interactive charts, machine learning predictions, and automated reporting features.',
-        technologies: [
-            { name: 'Python', icon: <FaPython className="text-blue-400" /> },
-            { name: 'React', icon: <FaReact className="text-blue-500" /> },
-            { name: 'Node.js', icon: <FaNodeJs className="text-green-500" /> },
-            { name: 'MongoDB', icon: <SiMongodb className="text-green-600" /> }
-        ],
-        image: ProjectImage3,
-        github: 'https://github.com/VirtusDakura/ai-analytics-dashboard',
-        demo: 'https://analytics.virtus.dev',
-        category: 'AI/ML',
-        featured: false
     }
 ];
 
@@ -64,7 +48,7 @@ const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('All');
     
-    const categories = ['All', 'Full-Stack', 'Frontend', 'AI/ML'];
+    const categories = ['All', 'Full-Stack', 'Frontend'];
     
     const filteredProjects = filter === 'All' 
         ? projects 

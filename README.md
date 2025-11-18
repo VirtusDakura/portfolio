@@ -245,10 +245,6 @@ Alternatively, connect your GitHub repository to Vercel for automatic deployment
 - **[React Icons](https://react-icons.github.io/react-icons/)** - Icon library
 - **[ESLint](https://eslint.org/)** - Code linting
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - **React Team** for the amazing framework
@@ -262,8 +258,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Virtus Dakura**
 - Portfolio: [virtusdakura.dev](https://virtusdakura.dev)
 - GitHub: [@VirtusDakura](https://github.com/VirtusDakura)
-- LinkedIn: [Virtus Dakura](https://linkedin.com/in/virtusdakura)
-- Email: contact@virtusdakura.dev
+- LinkedIn: [Virtus Dakura](https://linkedin.com/in/virtus-dakura)
+- Email: dakuravirtus@gmail.com
 
 ---
 
