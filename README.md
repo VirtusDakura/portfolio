@@ -17,14 +17,14 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 - **Vite**: Lightning-fast development and optimized builds
 - **Tailwind CSS**: Utility-first styling with custom animations
 - **ESLint**: Code quality and consistency enforcement
-- **PropTypes**: Type checking for better developer experience
+- **React Icons**: Comprehensive icon library for UI elements
 
 ### 🎯 Portfolio Sections
 - **Hero Section**: Eye-catching landing with animated introduction
 - **About**: Professional summary with key statistics
-- **Projects**: Showcase of featured work with filtering
+- **Projects**: Showcase of featured work
 - **Services**: Technical expertise and offerings
-- **Contact**: Interactive contact form with validation
+- **Contact**: Interactive contact form with social links
 
 ## 🏗️ Project Structure
 
@@ -32,38 +32,35 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 portfolio/
 ├── frontend/              # React application
 │   ├── public/           # Static assets
-│   │   └── Profile.png
+│   │   └── Profile.png   # Profile image
 │   ├── src/
 │   │   ├── assets/       # Image assets
+│   │   │   ├── About.jpg
+│   │   │   ├── hero-image.png
+│   │   │   ├── Project1.png
+│   │   │   ├── Project2.png
+│   │   │   └── Project3.png
 │   │   ├── components/   # React components
-│   │   ├── config/       # App configuration
-│   │   └── utils/        # Utility functions
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-├── .gitignore
-├── README.md
+│   │   │   ├── About.jsx          # About section
+│   │   │   ├── Contact.jsx        # Contact form
+│   │   │   ├── Hero.jsx           # Hero section
+│   │   │   ├── MobileTechMarquee.jsx  # Mobile tech marquee
+│   │   │   ├── Navbar.jsx         # Navigation
+│   │   │   ├── Projects.jsx       # Projects showcase
+│   │   │   ├── ScrollAnimation.jsx    # Animation wrapper
+│   │   │   ├── Service.jsx        # Services section
+│   │   │   └── TechBackground.jsx # Animated background
+│   │   ├── App.jsx       # Main app component
+│   │   ├── App.css       # App-specific styles
+│   │   ├── main.jsx      # React entry point
+│   │   └── index.css     # Global styles
+│   ├── index.html        # HTML template
+│   ├── package.json      # Dependencies
+│   ├── vite.config.js    # Vite configuration
+│   └── eslint.config.js  # ESLint configuration
+├── .gitignore            # Git ignore rules
+├── README.md             # Documentation
 └── vercel.json           # Vercel deployment config
-```
-│   │   ├── Navbar.jsx     # Navigation with mobile menu
-│   │   ├── Projects.jsx   # Portfolio showcase
-│   │   ├── Service.jsx    # Skills and services
-│   │   ├── ScrollAnimation.jsx  # Reusable animation component
-│   │   └── TechBackground.jsx   # Animated background system
-│   ├── config/            # Configuration files
-│   │   └── app.config.js  # App-wide configuration
-│   ├── utils/             # Utility functions
-│   │   └── api.js         # API service layer
-│   ├── App.jsx            # Main app component
-│   ├── main.jsx           # React entry point
-│   └── index.css          # Global styles and animations
-├── .env.example           # Environment variables template
-├── .gitignore             # Git ignore rules
-├── eslint.config.js       # ESLint configuration
-├── package.json           # Dependencies and scripts
-├── tailwind.config.js     # Tailwind configuration
-├── vite.config.js         # Vite configuration
-└── README.md              # This file
 ```
 
 ## 🚀 Quick Start
@@ -77,7 +74,7 @@ portfolio/
 1. **Clone the repository**
    ```bash
    git clone https://github.com/VirtusDakura/portfolio.git
-   cd portfolio
+   cd portfolio/frontend
    ```
 
 2. **Install dependencies**
@@ -85,18 +82,12 @@ portfolio/
    npm install
    ```
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your configuration
-   ```
-
-4. **Start development server**
+3. **Start development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
+4. **Open your browser**
    Navigate to `http://localhost:5173`
 
 ## 📝 Scripts
@@ -111,30 +102,10 @@ npm run lint         # Run ESLint for code quality
 
 ## 🔧 Configuration
 
-### Environment Variables
-
-Create a `.env.local` file based on `.env.example`:
-
-```env
-# API Configuration
-VITE_API_BASE_URL=http://localhost:3001/api
-VITE_CONTACT_API_ENDPOINT=/contact
-VITE_PROJECTS_API_ENDPOINT=/projects
-
-# Email Service (EmailJS)
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
-
-# Feature Flags
-VITE_ENABLE_CONTACT_FORM=true
-VITE_ENABLE_DYNAMIC_PROJECTS=false
-```
-
 ### Customization
 
 #### 🎨 Styling
-- **Colors**: Modify the color scheme in `tailwind.config.js`
+- **Colors**: Modify the color scheme in `src/index.css` or directly in components
 - **Animations**: Add custom animations in `src/index.css`
 - **Components**: Each component is fully customizable
 
@@ -147,33 +118,6 @@ VITE_ENABLE_DYNAMIC_PROJECTS=false
 - **ScrollAnimation**: Reusable component for scroll-triggered animations
 - **TechBackground**: Section-specific animated backgrounds
 - **Performance**: Automatically reduces animations for users who prefer reduced motion
-
-## 🔌 Backend Integration
-
-### API Service Layer
-The portfolio includes a comprehensive API service layer (`src/utils/api.js`) for seamless backend integration:
-
-```javascript
-import { apiService } from './utils/api.js';
-
-// Send contact form
-const result = await apiService.sendContactForm(formData);
-
-// Fetch projects
-const projects = await apiService.getProjects();
-```
-
-### Supported Endpoints
-- `POST /api/contact` - Contact form submission
-- `GET /api/projects` - Fetch projects data
-- `GET /api/skills` - Fetch skills data
-- `GET /api/experience` - Fetch experience data
-
-### Error Handling
-- Automatic retry mechanisms
-- Graceful error messaging
-- Loading state management
-- Network timeout handling
 
 ## 📱 Components Overview
 
@@ -202,7 +146,7 @@ Responsive navigation with mobile menu:
 - **`<Hero>`**: Landing section with introduction
 - **`<About>`**: Personal info, stats, and technologies
 - **`<Service>`**: Skills and expertise showcase
-- **`<Projects>`**: Portfolio projects with filtering
+- **`<Projects>`**: Portfolio projects showcase
 - **`<Contact>`**: Contact form and social links
 
 ## 🎯 Performance Optimizations
@@ -219,32 +163,48 @@ Responsive navigation with mobile menu:
 
 ### Code Optimization
 - Component lazy loading ready
-- Efficient re-renders with React.memo opportunities
+- Efficient re-renders with React best practices
 - Optimized bundle with Vite
 
 ## 🌐 Deployment
 
 ### Build for Production
 ```bash
+cd frontend
 npm run build
 ```
+
+The build output will be in the `dist/` directory.
 
 ### Deploy to Vercel
-```bash
-npm install -g vercel
-vercel --prod
-```
+
+1. **Install Vercel CLI**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Deploy**
+   ```bash
+   vercel --prod
+   ```
+
+Alternatively, connect your GitHub repository to Vercel for automatic deployments.
 
 ### Deploy to Netlify
-```bash
-npm run build
-# Upload dist/ folder to Netlify
-```
 
-### Environment Variables in Production
-Make sure to set all required environment variables in your hosting platform:
-- Vercel: Project Settings → Environment Variables
-- Netlify: Site Settings → Environment Variables
+1. **Build the project**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy**
+   - Drag and drop the `dist/` folder to Netlify
+   - Or connect your GitHub repository for automatic deployments
+
+### Other Hosting Options
+- **GitHub Pages**: Build and deploy the `dist/` folder
+- **Firebase Hosting**: Use Firebase CLI
+- **AWS S3**: Static website hosting
 
 ## 🤝 Contributing
 
@@ -274,8 +234,16 @@ Make sure to set all required environment variables in your hosting platform:
 - **ESLint**: Follow the configured linting rules
 - **Components**: Use functional components with hooks
 - **Styling**: Use Tailwind CSS utilities
-- **Comments**: Add JSDoc comments for components
-- **PropTypes**: Add PropTypes for all components
+- **Accessibility**: Follow WCAG guidelines
+- **Performance**: Keep bundle size optimized
+
+## 🛠️ Built With
+
+- **[React 19](https://react.dev/)** - UI library
+- **[Vite](https://vite.dev/)** - Build tool
+- **[Tailwind CSS](https://tailwindcss.com/)** - CSS framework
+- **[React Icons](https://react-icons.github.io/react-icons/)** - Icon library
+- **[ESLint](https://eslint.org/)** - Code linting
 
 ## 📄 License
 
@@ -287,15 +255,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Tailwind CSS** for the utility-first CSS framework
 - **Vite** for the blazing fast build tool
 - **React Icons** for the comprehensive icon library
+- **Open Source Community** for inspiration and tools
 
 ## 📞 Contact
 
 **Virtus Dakura**
 - Portfolio: [virtusdakura.dev](https://virtusdakura.dev)
 - GitHub: [@VirtusDakura](https://github.com/VirtusDakura)
-- LinkedIn: [LinkedIn Profile](https://linkedin.com/in/virtusdakura)
+- LinkedIn: [Virtus Dakura](https://linkedin.com/in/virtusdakura)
 - Email: contact@virtusdakura.dev
 
 ---
 
 ⭐ **Star this repository if you found it helpful!**
+
+Made with ❤️ by Virtus Dakura
