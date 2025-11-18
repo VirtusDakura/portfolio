@@ -7,7 +7,7 @@
 
 // API Configuration
 export const API_CONFIG = {
-  baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api',
+  baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api',
   endpoints: {
     contact: import.meta.env.VITE_CONTACT_API_ENDPOINT || '/contact',
     projects: import.meta.env.VITE_PROJECTS_API_ENDPOINT || '/projects',

@@ -1,6 +1,6 @@
 # 🚀 Virtus Dakura Portfolio
 
-A modern, full-stack portfolio website built with React, Vite, Tailwind CSS (frontend) and Django REST API (backend). Features immersive animations, a tech-aesthetic design, and comprehensive API integration.
+A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. Features immersive animations, a tech-aesthetic design, and comprehensive showcase of projects and skills.
 
 ![Portfolio Preview](./preview.png)
 
@@ -16,38 +16,35 @@ A modern, full-stack portfolio website built with React, Vite, Tailwind CSS (fro
 - **React 19**: Latest React with modern hooks and best practices
 - **Vite**: Lightning-fast development and optimized builds
 - **Tailwind CSS**: Utility-first styling with custom animations
-- **Django REST Framework**: Robust backend API
 - **ESLint**: Code quality and consistency enforcement
 - **PropTypes**: Type checking for better developer experience
 
-### 🔌 Backend Integration
-- **Django REST API**: Full-featured backend on port 8000
-- **Contact Form**: Connected to Django backend with email notifications
-- **Admin Panel**: Content management through Django admin
-- **Sample Data**: Population command for quick setup
-- **API Documentation**: Available at `/api/`
-
-### 🔗 Backend Ready
-- **API Integration**: Comprehensive API service layer
-- **Environment Configuration**: Production-ready environment management
-- **Error Handling**: Robust error handling with retry mechanisms
-- **Loading States**: Seamless UX with loading and error states
+### 🎯 Portfolio Sections
+- **Hero Section**: Eye-catching landing with animated introduction
+- **About**: Professional summary with key statistics
+- **Projects**: Showcase of featured work with filtering
+- **Services**: Technical expertise and offerings
+- **Contact**: Interactive contact form with validation
 
 ## 🏗️ Project Structure
 
 ```
 portfolio/
-├── public/                 # Static assets
-│   └── Profile.png        # Profile image
-├── src/
-│   ├── assets/            # Image assets
-│   │   ├── About.jpg
-│   │   ├── hero-image.png
-│   │   └── Project*.png
-│   ├── components/        # React components
-│   │   ├── About.jsx      # About section with stats
-│   │   ├── Contact.jsx    # Contact form and info
-│   │   ├── Hero.jsx       # Landing section
+├── frontend/              # React application
+│   ├── public/           # Static assets
+│   │   └── Profile.png
+│   ├── src/
+│   │   ├── assets/       # Image assets
+│   │   ├── components/   # React components
+│   │   ├── config/       # App configuration
+│   │   └── utils/        # Utility functions
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+├── .gitignore
+├── README.md
+└── vercel.json           # Vercel deployment config
+```
 │   │   ├── Navbar.jsx     # Navigation with mobile menu
 │   │   ├── Projects.jsx   # Portfolio showcase
 │   │   ├── Service.jsx    # Skills and services
