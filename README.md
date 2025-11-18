@@ -2,7 +2,6 @@
 
 A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. Features immersive animations, a tech-aesthetic design, and comprehensive showcase of projects and skills.
 
-![Portfolio Preview](./preview.png)
 
 ## ✨ Features
 
