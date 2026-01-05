@@ -7,7 +7,7 @@ const Hero = () => {
     const [displayedText, setDisplayedText] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTyping, setIsTyping] = useState(true);
-    
+
     const roles = useMemo(() => [
         'Full-Stack Developer',
         'Software Engineer',
@@ -17,7 +17,7 @@ const Hero = () => {
 
     useEffect(() => {
         const currentRole = roles[currentIndex];
-        
+
         if (isTyping) {
             if (displayedText.length < currentRole.length) {
                 const timeout = setTimeout(() => {
@@ -70,7 +70,7 @@ const Hero = () => {
                         </div>
 
                         <p className='text-sm sm:text-base lg:text-lg text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-2 sm:px-0'>
-                            Passionate software engineer crafting innovative solutions with modern technologies. 
+                            Passionate software engineer crafting innovative solutions with modern technologies.
                             I build scalable applications and love solving complex problems through clean, efficient code.
                         </p>
 
@@ -78,26 +78,32 @@ const Hero = () => {
 
                         {/* Action Buttons */}
                         <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-2 sm:px-0'>
-                            <button 
+                            <button
                                 onClick={() => scrollToSection('projects')}
                                 className='bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base w-full sm:w-auto'
                             >
                                 View My Work
                             </button>
-                            <button className='border-2 border-gray-600 text-gray-300 hover:border-white hover:text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base w-full sm:w-auto'>
+                            <a
+                                href="/resume.pdf"
+                                download="Virtus_Dakura_Resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className='border-2 border-gray-600 text-gray-300 hover:border-white hover:text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base w-full sm:w-auto'
+                            >
                                 <FaDownload />
                                 Download Resume
-                            </button>
+                            </a>
                         </div>
 
                         {/* Social Links */}
                         <div className='flex justify-center lg:justify-start space-x-6'>
-                            <a href='https://github.com/VirtusDakura' target='_blank' rel='noopener noreferrer' 
-                               className='text-gray-400 hover:text-white text-xl sm:text-2xl transform hover:scale-110 transition-all duration-300'>
+                            <a href='https://github.com/VirtusDakura' target='_blank' rel='noopener noreferrer'
+                                className='text-gray-400 hover:text-white text-xl sm:text-2xl transform hover:scale-110 transition-all duration-300'>
                                 <FaGithub />
                             </a>
-                            <a href='https://linkedin.com/in/virtus-dakura' target='_blank' rel='noopener noreferrer' 
-                               className='text-gray-400 hover:text-white text-xl sm:text-2xl transform hover:scale-110 transition-all duration-300'>
+                            <a href='https://linkedin.com/in/virtus-dakura' target='_blank' rel='noopener noreferrer'
+                                className='text-gray-400 hover:text-white text-xl sm:text-2xl transform hover:scale-110 transition-all duration-300'>
                                 <FaLinkedin />
                             </a>
                         </div>
@@ -107,9 +113,9 @@ const Hero = () => {
                     <ScrollAnimation direction="right" delay={400} className='w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0'>
                         <div className='relative'>
                             <div className='absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-xl opacity-30 animate-pulse'></div>
-                            <img 
-                                src={HeroImage} 
-                                alt="Virtus Dakura" 
+                            <img
+                                src={HeroImage}
+                                alt="Virtus Dakura"
                                 className='relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 xl:w-[28rem] xl:h-[28rem] 2xl:w-[32rem] 2xl:h-[32rem] rounded-full object-cover border-4 border-gray-700 shadow-2xl transform hover:scale-105 transition-transform duration-300'
                             />
                         </div>
@@ -118,7 +124,7 @@ const Hero = () => {
 
                 {/* Scroll Indicator */}
                 <div className='absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce'>
-                    <button 
+                    <button
                         onClick={() => scrollToSection('about')}
                         className='text-gray-400 hover:text-white transition-colors duration-300'
                     >
