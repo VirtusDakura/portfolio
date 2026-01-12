@@ -3,10 +3,10 @@ import imageUrlBuilder from '@sanity/image-url';
 
 // Sanity client configuration
 export const client = createClient({
-    projectId: '6ajwuesb',
-    dataset: 'production',
-    useCdn: true, // Set to false for real-time data during development
-    apiVersion: '2024-01-06', // Use today's date for the latest API version
+  projectId: '6ajwuesb',
+  dataset: 'production',
+  useCdn: false, // Disabled for real-time data - set to true for production performance
+  apiVersion: '2024-01-06', // Use today's date for the latest API version
 });
 
 // Image URL builder
@@ -14,12 +14,12 @@ const builder = imageUrlBuilder(client);
 
 // Helper function to get image URLs from Sanity
 export function urlFor(source) {
-    return builder.image(source);
+  return builder.image(source);
 }
 
 // Fetch hero section data
 export async function getHero() {
-    const query = `*[_type == "hero"][0] {
+  const query = `*[_type == "hero"][0] {
     name,
     greeting,
     roles,
@@ -32,12 +32,12 @@ export async function getHero() {
     },
     socialLinks
   }`;
-    return client.fetch(query);
+  return client.fetch(query);
 }
 
 // Fetch about section data
 export async function getAbout() {
-    const query = `*[_type == "about"][0] {
+  const query = `*[_type == "about"][0] {
     title,
     subtitle,
     aboutImage,
@@ -46,12 +46,12 @@ export async function getAbout() {
     stats,
     techStack
   }`;
-    return client.fetch(query);
+  return client.fetch(query);
 }
 
 // Fetch all projects
 export async function getProjects() {
-    const query = `*[_type == "project"] | order(order asc) {
+  const query = `*[_type == "project"] | order(order asc) {
     _id,
     name,
     "slug": slug.current,
@@ -65,12 +65,12 @@ export async function getProjects() {
     featured,
     order
   }`;
-    return client.fetch(query);
+  return client.fetch(query);
 }
 
 // Fetch featured projects only
 export async function getFeaturedProjects() {
-    const query = `*[_type == "project" && featured == true] | order(order asc) {
+  const query = `*[_type == "project" && featured == true] | order(order asc) {
     _id,
     name,
     "slug": slug.current,
@@ -83,12 +83,12 @@ export async function getFeaturedProjects() {
     category,
     featured
   }`;
-    return client.fetch(query);
+  return client.fetch(query);
 }
 
 // Fetch all skills/services
 export async function getSkills() {
-    const query = `*[_type == "skill"] | order(order asc) {
+  const query = `*[_type == "skill"] | order(order asc) {
     _id,
     title,
     description,
@@ -98,12 +98,12 @@ export async function getSkills() {
     gradientColor,
     order
   }`;
-    return client.fetch(query);
+  return client.fetch(query);
 }
 
 // Fetch a single project by slug
 export async function getProjectBySlug(slug) {
-    const query = `*[_type == "project" && slug.current == $slug][0] {
+  const query = `*[_type == "project" && slug.current == $slug][0] {
     _id,
     name,
     "slug": slug.current,
@@ -116,5 +116,5 @@ export async function getProjectBySlug(slug) {
     category,
     featured
   }`;
-    return client.fetch(query, { slug });
+  return client.fetch(query, { slug });
 }
