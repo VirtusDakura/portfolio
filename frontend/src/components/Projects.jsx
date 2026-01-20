@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
 import { getProjects, urlFor } from '../utils/sanity';
@@ -448,10 +449,11 @@ const Projects = () => {
                 </ScrollAnimation>
             </div>
 
-            {/* Project Modal */}
-            {selectedProject && (
+            {/* Project Modal - Using Portal to render outside component hierarchy */}
+            {selectedProject && createPortal(
                 <div
-                    className='fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm'
+                    className='fixed inset-0 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-[2px]'
+                    style={{ zIndex: 99999 }}
                     onClick={(e) => {
                         // Close modal when clicking on backdrop (not content)
                         if (e.target === e.currentTarget) {
@@ -517,7 +519,8 @@ const Projects = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </section>
     );
