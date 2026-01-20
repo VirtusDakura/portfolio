@@ -3,53 +3,18 @@ import ScrollAnimation from './ScrollAnimation';
 import { getAbout, urlFor } from '../utils/sanity';
 import { getIcon, getIconColor } from '../utils/iconMap';
 
-// Fallback image
-import AboutImageFallback from '../assets/About.jpg';
-
 const About = () => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [aboutData, setAboutData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Fallback data
-    const fallbackData = {
-        title: 'About Me',
-        subtitle: 'Passionate software engineer with expertise in modern web technologies',
-        heading: 'Crafting Digital Solutions with Passion',
-        paragraphs: [
-            "I'm a passionate software engineer specializing in full-stack web development. With expertise in modern technologies, I create scalable applications that solve real-world problems.",
-            "My approach combines clean code practices with innovative thinking to deliver exceptional user experiences. I'm always exploring new technologies and methodologies to stay at the forefront of software development."
-        ],
-        stats: [
-            { number: '2+', label: 'Years Experience' },
-            { number: '15+', label: 'Projects Completed' },
-            { number: '8+', label: 'Technologies' },
-            { number: '100%', label: 'Client Satisfaction' }
-        ],
-        techStack: [
-            { name: 'React', icon: 'react', color: 'text-blue-500' },
-            { name: 'Next.js', icon: 'nextjs', color: 'text-white' },
-            { name: 'Node.js', icon: 'nodejs', color: 'text-green-500' },
-            { name: 'Express', icon: 'express', color: 'text-gray-400' },
-            { name: 'MongoDB', icon: 'mongodb', color: 'text-green-600' },
-            { name: 'Tailwind', icon: 'tailwind', color: 'text-cyan-500' },
-            { name: 'Git', icon: 'git', color: 'text-orange-500' },
-            { name: 'Python', icon: 'python', color: 'text-blue-400' }
-        ]
-    };
-
     useEffect(() => {
         async function fetchAbout() {
             try {
                 const data = await getAbout();
-                if (data) {
-                    setAboutData(data);
-                } else {
-                    setAboutData(fallbackData);
-                }
+                setAboutData(data);
             } catch (error) {
                 console.error('Error fetching about data:', error);
-                setAboutData(fallbackData);
             } finally {
                 setLoading(false);
             }
@@ -57,19 +22,18 @@ const About = () => {
         fetchAbout();
     }, []);
 
-    // Get data with fallbacks
-    const data = aboutData || fallbackData;
-    const title = data.title || fallbackData.title;
-    const subtitle = data.subtitle || fallbackData.subtitle;
-    const heading = data.heading || fallbackData.heading;
-    const paragraphs = data.paragraphs?.length > 0 ? data.paragraphs : fallbackData.paragraphs;
-    const stats = data.stats?.length > 0 ? data.stats : fallbackData.stats;
-    const techStack = data.techStack?.length > 0 ? data.techStack : fallbackData.techStack;
+    // Get data from Sanity
+    const title = aboutData?.title || 'About Me';
+    const subtitle = aboutData?.subtitle || '';
+    const heading = aboutData?.heading || '';
+    const paragraphs = aboutData?.paragraphs || [];
+    const stats = aboutData?.stats || [];
+    const techStack = aboutData?.techStack || [];
 
     // Get about image URL
-    const aboutImageUrl = data.aboutImage
-        ? urlFor(data.aboutImage).width(800).url()
-        : AboutImageFallback;
+    const aboutImageUrl = aboutData?.aboutImage
+        ? urlFor(aboutData.aboutImage).width(800).url()
+        : null;
 
     // Preload image
     useEffect(() => {

@@ -5,54 +5,12 @@ import ScrollAnimation from './ScrollAnimation';
 import { getProjects, urlFor } from '../utils/sanity';
 import { getIcon, getIconColor } from '../utils/iconMap';
 
-// Fallback data for when Sanity hasn't been populated yet
-import PortfolioImage from '../assets/portfolio.png';
-import SanichFarmsImage from '../assets/sanichfarms.png';
-
-const fallbackProjects = [
-    {
-        _id: '1',
-        name: 'Sanich Farms',
-        description: 'A comprehensive e-commerce and service platform for a poultry farming business, featuring product sales, farm services, and customer management.',
-        longDescription: 'Full-stack e-commerce and service platform developed for Sanich Farms, a poultry farming business. As the full-stack developer and project manager, I led a team to build a complete solution with product catalog, service booking, order management, and customer portal. Features include secure payment processing, real-time inventory tracking, service appointment scheduling, and an admin dashboard for business operations.',
-        technologies: [
-            { name: 'React', icon: 'react', color: 'text-blue-500' },
-            { name: 'Vite', icon: 'vite', color: 'text-purple-500' },
-            { name: 'Tailwind CSS', icon: 'tailwind', color: 'text-cyan-500' },
-            { name: 'Node.js', icon: 'nodejs', color: 'text-green-500' },
-            { name: 'Express', icon: 'express', color: 'text-gray-400' },
-            { name: 'PostgreSQL', icon: 'postgresql', color: 'text-blue-600' },
-            { name: 'Figma', icon: 'figma', color: 'text-pink-500' }
-        ],
-        localImage: SanichFarmsImage,
-        github: 'https://github.com/Sprint-Force/Sanich-Farms',
-        demo: 'https://sanich-farms.vercel.app/',
-        category: 'Full-Stack',
-        featured: true
-    },
-    {
-        _id: '2',
-        name: 'Personal Portfolio',
-        description: 'A modern, responsive portfolio website showcasing my projects, skills, and experience with immersive animations and tech-aesthetic design.',
-        longDescription: 'My personal portfolio built with cutting-edge frontend technologies. Features include smooth scroll animations, dynamic particle backgrounds, responsive design optimized for all devices, and an interactive project showcase. The site demonstrates modern web development practices with performance optimization, accessibility features, and a futuristic tech aesthetic.',
-        technologies: [
-            { name: 'React', icon: 'react', color: 'text-blue-500' },
-            { name: 'Vite', icon: 'vite', color: 'text-purple-500' },
-            { name: 'Tailwind CSS', icon: 'tailwind', color: 'text-cyan-500' }
-        ],
-        localImage: PortfolioImage,
-        github: 'https://github.com/VirtusDakura/portfolio',
-        demo: 'https://virtus-dakura.vercel.app/',
-        category: 'Frontend',
-        featured: true
-    }
-];
-
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('All');
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const categories = ['All', 'Full-Stack', 'Frontend', 'Backend', 'Mobile'];
 
@@ -60,15 +18,10 @@ const Projects = () => {
         async function fetchProjects() {
             try {
                 const data = await getProjects();
-                if (data && data.length > 0) {
-                    setProjects(data);
-                } else {
-                    // Use fallback data if no projects in Sanity
-                    setProjects(fallbackProjects);
-                }
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-                setProjects(fallbackProjects);
+                setProjects(data || []);
+            } catch (err) {
+                console.error('Error fetching projects:', err);
+                setError('Failed to load projects');
             } finally {
                 setLoading(false);
             }
@@ -126,12 +79,12 @@ const Projects = () => {
         }
     }, [selectedProject]);
 
-    // Helper function to get image URL
+    // Helper function to get image URL from Sanity
     const getImageUrl = (project) => {
         if (project.image) {
             return urlFor(project.image).width(800).url();
         }
-        return project.localImage;
+        return null;
     };
 
     if (loading) {
@@ -141,9 +94,29 @@ const Projects = () => {
                     <div className='text-center'>
                         <div className='animate-pulse'>
                             <div className='h-12 bg-gray-700 rounded w-64 mx-auto mb-4'></div>
-                            <div className='h-6 bg-gray-700 rounded w-96 mx-auto'></div>
+                            <div className='h-6 bg-gray-700 rounded w-96 mx-auto mb-8'></div>
+                            <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
+                                {[1, 2, 3].map((i) => (
+                                    <div key={i} className='bg-gray-800 rounded-2xl h-80'></div>
+                                ))}
+                            </div>
                         </div>
                     </div>
+                </div>
+            </section>
+        );
+    }
+
+    if (error || projects.length === 0) {
+        return (
+            <section id='projects' className='text-white py-12 sm:py-16 lg:py-20'>
+                <div className='container mx-auto px-4 text-center'>
+                    <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
+                        Featured <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Projects</span>
+                    </h2>
+                    <p className='text-gray-400 text-lg'>
+                        {error || 'No projects available yet. Check back soon!'}
+                    </p>
                 </div>
             </section>
         );

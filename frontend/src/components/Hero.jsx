@@ -3,9 +3,6 @@ import { FaGithub, FaLinkedin, FaDownload, FaArrowDown, FaTwitter, FaEnvelope } 
 import ScrollAnimation from './ScrollAnimation';
 import { getHero, urlFor } from '../utils/sanity';
 
-// Fallback image
-import HeroImageFallback from '../assets/hero-image.png';
-
 const Hero = () => {
     const [displayedText, setDisplayedText] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,43 +10,24 @@ const Hero = () => {
     const [heroData, setHeroData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Fallback data
-    const fallbackData = useMemo(() => ({
-        name: 'Virtus Dakura',
-        greeting: "Hello, I'm",
-        roles: ['Full-Stack Developer', 'Software Engineer'],
-        bio: "Passionate software engineer crafting innovative solutions with modern technologies. I build scalable applications and love solving complex problems through clean, efficient code.",
-        profileImage: null,
-        resumeUrl: '/resume.pdf',
-        socialLinks: {
-            github: 'https://github.com/VirtusDakura',
-            linkedin: 'https://linkedin.com/in/virtus-dakura'
-        }
-    }), []);
-
     // Fetch hero data from Sanity
     useEffect(() => {
         async function fetchHero() {
             try {
                 const data = await getHero();
-                if (data) {
-                    setHeroData(data);
-                } else {
-                    setHeroData(fallbackData);
-                }
+                setHeroData(data);
             } catch (error) {
                 console.error('Error fetching hero data:', error);
-                setHeroData(fallbackData);
             } finally {
                 setLoading(false);
             }
         }
         fetchHero();
-    }, [fallbackData]);
+    }, []);
 
     const roles = useMemo(() => {
-        return heroData?.roles?.length > 0 ? heroData.roles : fallbackData.roles;
-    }, [heroData, fallbackData]);
+        return heroData?.roles?.length > 0 ? heroData.roles : ['Developer'];
+    }, [heroData]);
 
     useEffect(() => {
         if (loading || !roles.length) return;
@@ -88,26 +66,32 @@ const Hero = () => {
         }
     };
 
-    // Get data with fallbacks
-    const data = heroData || fallbackData;
-    const name = data.name || fallbackData.name;
-    const greeting = data.greeting || fallbackData.greeting;
-    const bio = data.bio || fallbackData.bio;
-    const socialLinks = data.socialLinks || fallbackData.socialLinks;
-    const resumeUrl = data.resumeFile?.asset?.url || '/resume.pdf';
+    // Get data from Sanity
+    const name = heroData?.name || 'Loading...';
+    const greeting = heroData?.greeting || "Hello, I'm";
+    const bio = heroData?.bio || '';
+    const socialLinks = heroData?.socialLinks || {};
+    const resumeUrl = heroData?.resumeFile?.asset?.url || null;
 
     // Get profile image URL
-    const profileImageUrl = data.profileImage
-        ? urlFor(data.profileImage).width(600).height(600).url()
-        : HeroImageFallback;
+    const profileImageUrl = heroData?.profileImage
+        ? urlFor(heroData.profileImage).width(600).height(600).url()
+        : null;
 
     if (loading) {
         return (
             <section id="home" className='min-h-screen text-white flex items-center justify-center relative pt-20 sm:pt-24 md:pt-28 lg:pt-20'>
                 <div className='container mx-auto px-4 text-center'>
-                    <div className='animate-pulse'>
-                        <div className='h-16 bg-gray-700 rounded w-64 mx-auto mb-4'></div>
-                        <div className='h-8 bg-gray-700 rounded w-48 mx-auto'></div>
+                    <div className='animate-pulse flex flex-col lg:flex-row items-center justify-center gap-8'>
+                        <div className='lg:w-1/2'>
+                            <div className='h-8 bg-gray-700 rounded w-32 mx-auto lg:mx-0 mb-4'></div>
+                            <div className='h-16 bg-gray-700 rounded w-64 mx-auto lg:mx-0 mb-4'></div>
+                            <div className='h-10 bg-gray-700 rounded w-48 mx-auto lg:mx-0 mb-6'></div>
+                            <div className='h-24 bg-gray-700 rounded w-full max-w-lg mx-auto lg:mx-0'></div>
+                        </div>
+                        <div className='lg:w-1/2 flex justify-center'>
+                            <div className='w-64 h-64 lg:w-96 lg:h-96 bg-gray-700 rounded-full'></div>
+                        </div>
                     </div>
                 </div>
             </section>
