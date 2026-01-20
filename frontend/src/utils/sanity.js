@@ -118,3 +118,28 @@ export async function getProjectBySlug(slug) {
   }`;
   return client.fetch(query, { slug });
 }
+
+// Write client for creating contact messages
+// Token should have limited permissions (only create contactMessage)
+const writeClient = createClient({
+  projectId: '6ajwuesb',
+  dataset: 'production',
+  useCdn: false,
+  apiVersion: '2024-01-06',
+  token: import.meta.env.VITE_SANITY_WRITE_TOKEN, // Set this in .env file
+});
+
+// Save a contact message to Sanity
+export async function saveContactMessage({ name, email, subject, message }) {
+  const doc = {
+    _type: 'contactMessage',
+    name,
+    email,
+    subject,
+    message,
+    receivedAt: new Date().toISOString(),
+    read: false,
+  };
+
+  return writeClient.create(doc);
+}
