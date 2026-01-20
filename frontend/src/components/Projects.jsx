@@ -86,13 +86,44 @@ const Projects = () => {
 
     const openModal = (project) => {
         setSelectedProject(project);
-        document.body.style.overflow = 'hidden';
     };
 
     const closeModal = () => {
         setSelectedProject(null);
-        document.body.style.overflow = 'unset';
     };
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        if (selectedProject) {
+            // Prevent scrolling on both html and body
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+            // Prevent touch scroll on mobile
+            const preventScroll = (e) => {
+                // Allow scrolling inside the modal content
+                const modalContent = document.querySelector('.modal-content');
+                if (modalContent && modalContent.contains(e.target)) {
+                    return;
+                }
+                e.preventDefault();
+            };
+
+            document.addEventListener('touchmove', preventScroll, { passive: false });
+            document.addEventListener('wheel', preventScroll, { passive: false });
+
+            return () => {
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+                document.removeEventListener('touchmove', preventScroll);
+                document.removeEventListener('wheel', preventScroll);
+            };
+        }
+    }, [selectedProject]);
 
     // Helper function to get image URL
     const getImageUrl = (project) => {
@@ -136,8 +167,8 @@ const Projects = () => {
                                     key={category}
                                     onClick={() => setFilter(category)}
                                     className={`px-4 py-2 sm:px-6 sm:py-2 rounded-lg transition-all duration-300 cursor-pointer text-sm sm:text-base ${filter === category
-                                            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
-                                            : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'
+                                        ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+                                        : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'
                                         }`}
                                 >
                                     {category}
@@ -419,8 +450,17 @@ const Projects = () => {
 
             {/* Project Modal */}
             {selectedProject && (
-                <div className='fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm'>
-                    <div className='bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto'>
+                <div
+                    className='fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm'
+                    onClick={(e) => {
+                        // Close modal when clicking on backdrop (not content)
+                        if (e.target === e.currentTarget) {
+                            closeModal();
+                        }
+                    }}
+                    onTouchMove={(e) => e.stopPropagation()}
+                >
+                    <div className='modal-content bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto'>
                         <div className='relative'>
                             <img
                                 src={getImageUrl(selectedProject)}
