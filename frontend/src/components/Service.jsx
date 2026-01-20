@@ -16,64 +16,6 @@ const skillIconMap = {
     'nodejs': SiNodedotjs,
 };
 
-// Fallback skills data
-const fallbackServices = [
-    {
-        _id: '1',
-        title: 'Frontend Development',
-        description: 'Building responsive, interactive user interfaces with React, Next.js, and modern CSS frameworks.',
-        icon: 'react',
-        iconColor: 'text-blue-500',
-        technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
-        gradientColor: 'from-blue-500 to-cyan-500'
-    },
-    {
-        _id: '2',
-        title: 'Backend Development',
-        description: 'Creating robust server-side applications with Node.js, Express, and RESTful APIs.',
-        icon: 'nodejs',
-        iconColor: 'text-green-500',
-        technologies: ['Node.js', 'Express', 'Python', 'REST APIs'],
-        gradientColor: 'from-green-500 to-emerald-500'
-    },
-    {
-        _id: '3',
-        title: 'Database Design',
-        description: 'Designing efficient database schemas and optimizing queries for better performance.',
-        icon: 'database',
-        iconColor: 'text-orange-500',
-        technologies: ['MongoDB', 'PostgreSQL', 'Redis', 'Prisma'],
-        gradientColor: 'from-orange-500 to-red-500'
-    },
-    {
-        _id: '4',
-        title: 'Full-Stack Applications',
-        description: 'End-to-end application development from concept to deployment.',
-        icon: 'code',
-        iconColor: 'text-purple-500',
-        technologies: ['MERN Stack', 'Next.js', 'Prisma', 'Vercel'],
-        gradientColor: 'from-purple-500 to-pink-500'
-    },
-    {
-        _id: '5',
-        title: 'Mobile Development',
-        description: 'Cross-platform mobile applications using React Native and modern mobile technologies.',
-        icon: 'mobile',
-        iconColor: 'text-indigo-500',
-        technologies: ['React Native', 'Expo', 'Firebase', 'Redux'],
-        gradientColor: 'from-indigo-500 to-blue-500'
-    },
-    {
-        _id: '6',
-        title: 'DevOps & Deployment',
-        description: 'Setting up CI/CD pipelines and deploying applications to cloud platforms.',
-        icon: 'cloud',
-        iconColor: 'text-cyan-500',
-        technologies: ['Docker', 'AWS', 'Vercel', 'GitHub Actions'],
-        gradientColor: 'from-cyan-500 to-teal-500'
-    }
-];
-
 const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 };
@@ -81,19 +23,16 @@ const scrollToContact = () => {
 const Service = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchSkills() {
             try {
                 const data = await getSkills();
-                if (data && data.length > 0) {
-                    setServices(data);
-                } else {
-                    setServices(fallbackServices);
-                }
-            } catch (error) {
-                console.error('Error fetching skills:', error);
-                setServices(fallbackServices);
+                setServices(data || []);
+            } catch (err) {
+                console.error('Error fetching skills:', err);
+                setError('Failed to load skills');
             } finally {
                 setLoading(false);
             }
@@ -113,8 +52,28 @@ const Service = () => {
                 <div className='container mx-auto px-4 text-center'>
                     <div className='animate-pulse'>
                         <div className='h-12 bg-gray-700 rounded w-48 mx-auto mb-4'></div>
-                        <div className='h-6 bg-gray-700 rounded w-96 mx-auto'></div>
+                        <div className='h-6 bg-gray-700 rounded w-96 mx-auto mb-8'></div>
+                        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
+                            {[1, 2, 3, 4, 5, 6].map((i) => (
+                                <div key={i} className='bg-gray-800 rounded-2xl h-64'></div>
+                            ))}
+                        </div>
                     </div>
+                </div>
+            </section>
+        );
+    }
+
+    if (error || services.length === 0) {
+        return (
+            <section id='skills' className='text-white py-12 sm:py-16 lg:py-20'>
+                <div className='container mx-auto px-4 text-center'>
+                    <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
+                        My <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Skills</span>
+                    </h2>
+                    <p className='text-gray-400 text-lg'>
+                        {error || 'No skills available yet. Check back soon!'}
+                    </p>
                 </div>
             </section>
         );
