@@ -1,7 +1,8 @@
 # 🚀 Virtus Dakura Portfolio
 
-A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. Features immersive animations, a tech-aesthetic design, and comprehensive showcase of projects and skills.
+A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. Features a **Sanity CMS** integration for easy content management, immersive animations, and a tech-aesthetic design.
 
+![Portfolio Preview](https://virtus-dakura.vercel.app)
 
 ## ✨ Features
 
@@ -15,51 +16,61 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 - **React 19**: Latest React with modern hooks and best practices
 - **Vite**: Lightning-fast development and optimized builds
 - **Tailwind CSS**: Utility-first styling with custom animations
+- **Sanity CMS**: Headless CMS for content management
 - **ESLint**: Code quality and consistency enforcement
-- **React Icons**: Comprehensive icon library for UI elements
+
+### 📝 Content Management (Sanity CMS)
+- **Easy Content Updates**: Edit projects, skills, and personal info without touching code
+- **Image Optimization**: Automatic image optimization via Sanity CDN
+- **Real-time Updates**: Changes appear on the site immediately
+- **Contact Message Storage**: Form submissions saved to CMS + email notifications
 
 ### 🎯 Portfolio Sections
 - **Hero Section**: Eye-catching landing with animated introduction
-- **About**: Professional summary with key statistics
-- **Projects**: Showcase of featured work
-- **Services**: Technical expertise and offerings
-- **Contact**: Interactive contact form with social links
+- **About**: Professional summary with key statistics and tech stack
+- **Projects**: Showcase of featured work with filtering
+- **Services/Skills**: Technical expertise and offerings
+- **Contact**: Interactive contact form with email notifications
 
 ## 🏗️ Project Structure
 
 ```
 portfolio/
-├── frontend/              # React application
-│   ├── public/           # Static assets
-│   │   └── Profile.png   # Profile image
+├── frontend/                # React application
+│   ├── public/             # Static assets
+│   │   └── Profile.png     # Favicon
 │   ├── src/
-│   │   ├── assets/       # Image assets
-│   │   │   ├── About.jpg
-│   │   │   ├── hero-image.png
-│   │   │   ├── Project1.png
-│   │   │   ├── Project2.png
-│   │   │   └── Project3.png
-│   │   ├── components/   # React components
-│   │   │   ├── About.jsx          # About section
-│   │   │   ├── Contact.jsx        # Contact form
-│   │   │   ├── Hero.jsx           # Hero section
-│   │   │   ├── MobileTechMarquee.jsx  # Mobile tech marquee
-│   │   │   ├── Navbar.jsx         # Navigation
-│   │   │   ├── Projects.jsx       # Projects showcase
-│   │   │   ├── ScrollAnimation.jsx    # Animation wrapper
-│   │   │   ├── Service.jsx        # Services section
-│   │   │   └── TechBackground.jsx # Animated background
-│   │   ├── App.jsx       # Main app component
-│   │   ├── App.css       # App-specific styles
-│   │   ├── main.jsx      # React entry point
-│   │   └── index.css     # Global styles
-│   ├── index.html        # HTML template
-│   ├── package.json      # Dependencies
-│   ├── vite.config.js    # Vite configuration
-│   └── eslint.config.js  # ESLint configuration
-├── .gitignore            # Git ignore rules
-├── README.md             # Documentation
-└── vercel.json           # Vercel deployment config
+│   │   ├── components/     # React components
+│   │   │   ├── About.jsx
+│   │   │   ├── Contact.jsx
+│   │   │   ├── Hero.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Projects.jsx
+│   │   │   ├── ScrollAnimation.jsx
+│   │   │   ├── Service.jsx
+│   │   │   └── TechBackground.jsx
+│   │   ├── utils/          # Utility functions
+│   │   │   ├── sanity.js   # Sanity client & queries
+│   │   │   └── iconMap.jsx # Icon mapping utility
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── .env                # Environment variables (not in repo)
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+├── studio/                  # Sanity Studio (CMS)
+│   ├── schemaTypes/        # Content schemas
+│   │   ├── hero.ts
+│   │   ├── about.ts
+│   │   ├── project.ts
+│   │   ├── skill.ts
+│   │   └── contactMessage.ts
+│   ├── sanity.config.ts
+│   └── sanity.cli.ts
+├── .gitignore
+├── README.md
+└── vercel.json
 ```
 
 ## 🚀 Quick Start
@@ -67,195 +78,162 @@ portfolio/
 ### Prerequisites
 - Node.js 18+ 
 - npm or yarn package manager
+- Sanity account (free tier available)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/VirtusDakura/portfolio.git
-   cd portfolio/frontend
+   cd portfolio
    ```
 
-2. **Install dependencies**
+2. **Install frontend dependencies**
    ```bash
+   cd frontend
    npm install
    ```
 
-3. **Start development server**
+3. **Install Sanity Studio dependencies**
    ```bash
+   cd ../studio
+   npm install
+   ```
+
+4. **Set up environment variables**
+   
+   Create a `.env` file in the `frontend/` directory:
+   ```env
+   # Web3Forms Access Key (for email notifications)
+   # Get your free key at: https://web3forms.com/
+   VITE_WEB3FORMS_KEY=your_web3forms_access_key
+
+   # Sanity Write Token (for saving contact messages)
+   # Create at: https://sanity.io/manage → Your Project → API → Tokens
+   VITE_SANITY_WRITE_TOKEN=your_sanity_write_token
+   ```
+
+5. **Start development servers**
+   
+   In one terminal (frontend):
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+   
+   In another terminal (Sanity Studio):
+   ```bash
+   cd studio
    npm run dev
    ```
 
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
+6. **Open your browser**
+   - Frontend: `http://localhost:5173`
+   - Sanity Studio: `http://localhost:3333`
+
+## 📝 Content Management
+
+### Sanity Studio Dashboard
+
+Access your CMS at: **[virtus-portfolio.sanity.studio](https://virtus-portfolio.sanity.studio)**
+
+| Content Type | What You Can Edit |
+|--------------|-------------------|
+| **Hero Section** | Name, roles, bio, profile image, resume, social links |
+| **About Section** | Stats, tech stack, paragraphs, about image |
+| **Projects** | Add/edit projects with images, tech stack, links |
+| **Skills/Services** | Skills with icons, technologies, descriptions |
+| **Contact Messages** | View all form submissions (marked as read/unread) |
+
+### Updating Content
+
+1. Go to [virtus-portfolio.sanity.studio](https://virtus-portfolio.sanity.studio)
+2. Log in with your Sanity account
+3. Edit any section
+4. Click **"Publish"** to save changes
+5. Changes appear on your live site immediately!
 
 ## 📝 Scripts
 
+### Frontend
 ```bash
-# Development
+cd frontend
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run preview      # Preview production build locally
 npm run lint         # Run ESLint for code quality
 ```
 
-## 🔧 Configuration
-
-### Customization
-
-#### 🎨 Styling
-- **Colors**: Modify the color scheme in `src/index.css` or directly in components
-- **Animations**: Add custom animations in `src/index.css`
-- **Components**: Each component is fully customizable
-
-#### 📱 Responsive Design
-- **Mobile-first**: Built with mobile-first responsive design
-- **Breakpoints**: Standard Tailwind CSS breakpoints
-- **Touch-friendly**: Optimized for touch interactions
-
-#### 🎭 Animations
-- **ScrollAnimation**: Reusable component for scroll-triggered animations
-- **TechBackground**: Section-specific animated backgrounds
-- **Performance**: Automatically reduces animations for users who prefer reduced motion
-
-## 📱 Components Overview
-
-### Core Components
-
-#### `<ScrollAnimation>`
-Reusable animation component with Intersection Observer API:
-- **Directions**: left, right, up, down, fade
-- **Customizable**: delay, duration, threshold
-- **Performance**: Optimized with proper cleanup
-
-#### `<TechBackground>`
-Sophisticated animated background system:
-- **Section-specific**: Different themes per section
-- **Performance**: Reduced motion support
-- **Customizable**: Colors, particle count, animation intensity
-
-#### `<Navbar>`
-Responsive navigation with mobile menu:
-- **Smooth scrolling**: Anchor links with smooth scrolling
-- **Mobile-first**: Hamburger menu with tech aesthetic
-- **Fixed positioning**: Stays visible during scroll
-
-### Section Components
-
-- **`<Hero>`**: Landing section with introduction
-- **`<About>`**: Personal info, stats, and technologies
-- **`<Service>`**: Skills and expertise showcase
-- **`<Projects>`**: Portfolio projects showcase
-- **`<Contact>`**: Contact form and social links
-
-## 🎯 Performance Optimizations
-
-### Image Optimization
-- Lazy loading with loading states
-- Optimized image formats
-- Responsive image sizing
-
-### Animation Performance
-- CSS transforms for smooth animations
-- `will-change` property for optimization
-- Reduced motion support for accessibility
-
-### Code Optimization
-- Component lazy loading ready
-- Efficient re-renders with React best practices
-- Optimized bundle with Vite
+### Sanity Studio
+```bash
+cd studio
+npm run dev          # Start local Sanity Studio
+npx sanity deploy    # Deploy Studio to sanity.studio
+npx sanity cors add  # Add CORS origin
+```
 
 ## 🌐 Deployment
 
-### Build for Production
+### Deploy Frontend to Vercel
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Update portfolio"
+   git push
+   ```
+
+2. **Add Environment Variables in Vercel**
+   - Go to [vercel.com/dashboard](https://vercel.com/dashboard)
+   - Select your project → Settings → Environment Variables
+   - Add `VITE_WEB3FORMS_KEY` and `VITE_SANITY_WRITE_TOKEN`
+
+3. **Automatic Deployment**
+   - Vercel auto-deploys on every push to main branch
+
+### Deploy Sanity Studio
+
 ```bash
-cd frontend
-npm run build
+cd studio
+npx sanity deploy
 ```
 
-The build output will be in the `dist/` directory.
+Studio will be available at: `https://your-project.sanity.studio`
 
-### Deploy to Vercel
+## 🔧 Configuration
 
-1. **Install Vercel CLI**
-   ```bash
-   npm install -g vercel
-   ```
+### Sanity Project Settings
 
-2. **Deploy**
-   ```bash
-   vercel --prod
-   ```
+The Sanity project is configured in `studio/sanity.config.ts`:
 
-Alternatively, connect your GitHub repository to Vercel for automatic deployments.
+```typescript
+projectId: '6ajwuesb'
+dataset: 'production'
+```
 
-### Deploy to Netlify
+### CORS Configuration
 
-1. **Build the project**
-   ```bash
-   npm run build
-   ```
+To allow your frontend to access Sanity, add CORS origins:
 
-2. **Deploy**
-   - Drag and drop the `dist/` folder to Netlify
-   - Or connect your GitHub repository for automatic deployments
-
-### Other Hosting Options
-- **GitHub Pages**: Build and deploy the `dist/` folder
-- **Firebase Hosting**: Use Firebase CLI
-- **AWS S3**: Static website hosting
-
-## 🤝 Contributing
-
-### Development Workflow
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Run linting**
-   ```bash
-   npm run lint
-   ```
-5. **Commit your changes**
-   ```bash
-   git commit -m 'Add amazing feature'
-   ```
-6. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-7. **Open a Pull Request**
-
-### Code Standards
-- **ESLint**: Follow the configured linting rules
-- **Components**: Use functional components with hooks
-- **Styling**: Use Tailwind CSS utilities
-- **Accessibility**: Follow WCAG guidelines
-- **Performance**: Keep bundle size optimized
+```bash
+cd studio
+npx sanity cors add http://localhost:5173    # Local development
+npx sanity cors add https://your-domain.com  # Production
+```
 
 ## 🛠️ Built With
 
 - **[React 19](https://react.dev/)** - UI library
 - **[Vite](https://vite.dev/)** - Build tool
 - **[Tailwind CSS](https://tailwindcss.com/)** - CSS framework
+- **[Sanity](https://www.sanity.io/)** - Headless CMS
+- **[Web3Forms](https://web3forms.com/)** - Form submissions & email
 - **[React Icons](https://react-icons.github.io/react-icons/)** - Icon library
-- **[ESLint](https://eslint.org/)** - Code linting
-
-## 🙏 Acknowledgments
-
-- **React Team** for the amazing framework
-- **Tailwind CSS** for the utility-first CSS framework
-- **Vite** for the blazing fast build tool
-- **React Icons** for the comprehensive icon library
-- **Open Source Community** for inspiration and tools
 
 ## 📞 Contact
 
 **Virtus Dakura**
-- Portfolio: [virtusdakura.dev](https://virtusdakura.dev)
+- Portfolio: [virtus-dakura.vercel.app](https://virtus-dakura.vercel.app)
 - GitHub: [@VirtusDakura](https://github.com/VirtusDakura)
 - LinkedIn: [Virtus Dakura](https://linkedin.com/in/virtus-dakura)
 - Email: dakuravirtus@gmail.com
