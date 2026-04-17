@@ -59,8 +59,15 @@ const Projects = () => {
                 e.preventDefault();
             };
 
+            const handleKeyDown = (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            };
+
             document.addEventListener('touchmove', preventScroll, { passive: false });
             document.addEventListener('wheel', preventScroll, { passive: false });
+            document.addEventListener('keydown', handleKeyDown);
 
             return () => {
                 document.documentElement.style.overflow = '';
@@ -68,6 +75,7 @@ const Projects = () => {
                 document.body.style.paddingRight = '';
                 document.removeEventListener('touchmove', preventScroll);
                 document.removeEventListener('wheel', preventScroll);
+                document.removeEventListener('keydown', handleKeyDown);
             };
         }
     }, [selectedProject]);
@@ -211,6 +219,9 @@ const Projects = () => {
                         }
                     }}
                     onTouchMove={(e) => e.stopPropagation()}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modal-title"
                 >
                     <div className='modal-content bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto'>
                         <div className='relative'>
@@ -221,13 +232,14 @@ const Projects = () => {
                             />
                             <button
                                 onClick={closeModal}
+                                aria-label="Close modal"
                                 className='absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-black/70 transition-all duration-300 cursor-pointer'
                             >
                                 ✕
                             </button>
                         </div>
                         <div className='p-4 sm:p-6 lg:p-8'>
-                            <h3 className='text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
+                            <h3 id="modal-title" className='text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
                                 {selectedProject.name}
                             </h3>
                             <p className='text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base'>
