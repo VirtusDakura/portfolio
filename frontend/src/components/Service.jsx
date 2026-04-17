@@ -20,6 +20,17 @@ const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 };
 
+// Safelist gradient colors used by Sanity CMS so Tailwind doesn't purge them
+// eslint-disable-next-line no-unused-vars
+const gradientSafelist = [
+    'from-blue-500', 'to-cyan-500',
+    'from-purple-500', 'to-pink-500',
+    'from-green-500', 'to-emerald-500',
+    'from-orange-500', 'to-yellow-500',
+    'from-cyan-500', 'to-blue-500',
+    'from-pink-500', 'to-purple-500'
+];
+
 const Service = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
