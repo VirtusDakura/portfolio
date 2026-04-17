@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { createPortal } from 'react-dom';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
@@ -9,26 +10,17 @@ import ProjectCard from './ProjectCard';
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('All');
-    const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
     const categories = ['All', 'Full-Stack', 'Frontend', 'Backend', 'Mobile'];
 
-    useEffect(() => {
-        async function fetchProjects() {
-            try {
-                const data = await getProjects();
-                setProjects(data || []);
-            } catch (err) {
-                console.error('Error fetching projects:', err);
-                setError('Failed to load projects');
-            } finally {
-                setLoading(false);
-            }
+    const { data: projects = [], isLoading: loading, isError } = useQuery({
+        queryKey: ['projects'],
+        queryFn: async () => {
+            const data = await getProjects();
+            return data || [];
         }
-        fetchProjects();
-    }, []);
+    });
+
+    const error = isError ? 'Failed to load projects' : null;
 
     const filteredProjects = filter === 'All'
         ? projects

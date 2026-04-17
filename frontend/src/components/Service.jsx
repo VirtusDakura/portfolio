@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import ScrollAnimation from './ScrollAnimation';
 import { getSkills } from '../utils/sanity';
 import ServiceCard from './ServiceCard';
@@ -19,24 +20,15 @@ const gradientSafelist = [
 ];
 
 const Service = () => {
-    const [services, setServices] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        async function fetchSkills() {
-            try {
-                const data = await getSkills();
-                setServices(data || []);
-            } catch (err) {
-                console.error('Error fetching skills:', err);
-                setError('Failed to load skills');
-            } finally {
-                setLoading(false);
-            }
+    const { data: services = [], isLoading: loading, isError } = useQuery({
+        queryKey: ['skills'],
+        queryFn: async () => {
+            const data = await getSkills();
+            return data || [];
         }
-        fetchSkills();
-    }, []);
+    });
+
+    const error = isError ? 'Failed to load skills' : null;
 
 
 

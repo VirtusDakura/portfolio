@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { FaGithub, FaLinkedin, FaDownload, FaArrowDown, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
 import { getHero, urlFor } from '../utils/sanity';
@@ -7,23 +8,10 @@ const Hero = () => {
     const [displayedText, setDisplayedText] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTyping, setIsTyping] = useState(true);
-    const [heroData, setHeroData] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    // Fetch hero data from Sanity
-    useEffect(() => {
-        async function fetchHero() {
-            try {
-                const data = await getHero();
-                setHeroData(data);
-            } catch (error) {
-                console.error('Error fetching hero data:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchHero();
-    }, []);
+    const { data: heroData, isLoading: loading } = useQuery({
+        queryKey: ['hero'],
+        queryFn: getHero
+    });
 
     const roles = useMemo(() => {
         return heroData?.roles?.length > 0 ? heroData.roles : ['Developer'];

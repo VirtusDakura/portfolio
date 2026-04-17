@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import ScrollAnimation from './ScrollAnimation';
 import { getAbout, urlFor } from '../utils/sanity';
 import { getIcon, getIconColor } from '../utils/iconMap';
 
 const About = () => {
     const [imageLoaded, setImageLoaded] = useState(false);
-    const [aboutData, setAboutData] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        async function fetchAbout() {
-            try {
-                const data = await getAbout();
-                setAboutData(data);
-            } catch (error) {
-                console.error('Error fetching about data:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchAbout();
-    }, []);
+    const { data: aboutData, isLoading: loading } = useQuery({
+        queryKey: ['about'],
+        queryFn: getAbout
+    });
 
     // Get data from Sanity
     const title = aboutData?.title || 'About Me';
