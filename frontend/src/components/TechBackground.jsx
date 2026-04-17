@@ -27,45 +27,52 @@ const TechBackground = ({ children, section = 'default' }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [animationsEnabled, setAnimationsEnabled] = useState(true);
 
+    // Map base colors to their full Tailwind class equivalents for the JIT compiler
+    const colorMap = {
+        'blue-500': { bg40: 'bg-blue-500/40', bg60: 'bg-blue-500/60', border50: 'border-blue-500/50' },
+        'purple-500': { bg40: 'bg-purple-500/40', bg60: 'bg-purple-500/60', border50: 'border-purple-500/50' },
+        'cyan-500': { bg40: 'bg-cyan-500/40', bg60: 'bg-cyan-500/60', border50: 'border-cyan-500/50' }
+    };
+
     // Section-specific configurations for variety
     const sectionConfig = useMemo(() => {
         const configs = {
             hero: {
-                primaryColor: 'blue-500',
-                secondaryColor: 'purple-500',
-                accentColor: 'cyan-500',
+                primary: colorMap['blue-500'],
+                secondary: colorMap['purple-500'],
+                accent: colorMap['cyan-500'],
                 particleCount: 6,
                 gridOpacity: 0.25,
                 orbSize: { primary: 'w-32 h-32', secondary: 'w-24 h-24', tertiary: 'w-20 h-20' }
             },
             about: {
-                primaryColor: 'purple-500',
-                secondaryColor: 'cyan-500',
-                accentColor: 'blue-500',
+                primary: colorMap['purple-500'],
+                secondary: colorMap['cyan-500'],
+                accent: colorMap['blue-500'],
                 particleCount: 5,
                 gridOpacity: 0.22,
                 orbSize: { primary: 'w-28 h-28', secondary: 'w-20 h-20', tertiary: 'w-16 h-16' }
             },
             services: {
-                primaryColor: 'cyan-500',
-                secondaryColor: 'blue-500',
-                accentColor: 'purple-500',
+                primary: colorMap['cyan-500'],
+                secondary: colorMap['blue-500'],
+                accent: colorMap['purple-500'],
                 particleCount: 5,
                 gridOpacity: 0.20,
                 orbSize: { primary: 'w-30 h-30', secondary: 'w-22 h-22', tertiary: 'w-18 h-18' }
             },
             projects: {
-                primaryColor: 'blue-500',
-                secondaryColor: 'cyan-500',
-                accentColor: 'purple-500',
+                primary: colorMap['blue-500'],
+                secondary: colorMap['cyan-500'],
+                accent: colorMap['purple-500'],
                 particleCount: 6,
                 gridOpacity: 0.24,
                 orbSize: { primary: 'w-36 h-36', secondary: 'w-26 h-26', tertiary: 'w-22 h-22' }
             },
             contact: {
-                primaryColor: 'purple-500',
-                secondaryColor: 'blue-500',
-                accentColor: 'cyan-500',
+                primary: colorMap['purple-500'],
+                secondary: colorMap['blue-500'],
+                accent: colorMap['cyan-500'],
                 particleCount: 4,
                 gridOpacity: 0.18,
                 orbSize: { primary: 'w-24 h-24', secondary: 'w-18 h-18', tertiary: 'w-14 h-14' }
@@ -162,7 +169,7 @@ const TechBackground = ({ children, section = 'default' }) => {
             <>
                 {/* Primary Large Orb with pulse */}
                 <div 
-                    className={`absolute top-1/4 left-1/4 ${sectionConfig.orbSize.primary} bg-${sectionConfig.primaryColor}/40 rounded-full blur-2xl`}
+                    className={`absolute top-1/4 left-1/4 ${sectionConfig.orbSize.primary} ${sectionConfig.primary.bg40} rounded-full blur-2xl`}
                     style={{
                         animation: 'float 6s ease-in-out infinite, orbPulse 3s ease-in-out infinite',
                         willChange: 'transform'
@@ -171,7 +178,7 @@ const TechBackground = ({ children, section = 'default' }) => {
                 
                 {/* Secondary Orb with rotation */}
                 <div 
-                    className={`absolute bottom-1/3 right-1/4 ${sectionConfig.orbSize.secondary} bg-${sectionConfig.secondaryColor}/40 rounded-full blur-xl`}
+                    className={`absolute bottom-1/3 right-1/4 ${sectionConfig.orbSize.secondary} ${sectionConfig.secondary.bg40} rounded-full blur-xl`}
                     style={{
                         animation: 'float 8s ease-in-out infinite reverse, orbRotate 12s linear infinite',
                         animationDelay: '2s',
@@ -181,7 +188,7 @@ const TechBackground = ({ children, section = 'default' }) => {
                 
                 {/* Tertiary Bouncing Orb */}
                 <div 
-                    className={`absolute top-1/2 right-1/3 ${sectionConfig.orbSize.tertiary} bg-${sectionConfig.accentColor}/40 rounded-full blur-lg`}
+                    className={`absolute top-1/2 right-1/3 ${sectionConfig.orbSize.tertiary} ${sectionConfig.accent.bg40} rounded-full blur-lg`}
                     style={{
                         animation: 'bounce 4s ease-in-out infinite, orbPulse 2s ease-in-out infinite',
                         animationDelay: '1s',
@@ -216,7 +223,7 @@ const TechBackground = ({ children, section = 'default' }) => {
             particles.push(
                 <div
                     key={i}
-                    className={`absolute ${isLarge ? 'w-2 h-2' : 'w-1 h-1'} bg-${sectionConfig.primaryColor}/60 rounded-full`}
+                    className={`absolute ${isLarge ? 'w-2 h-2' : 'w-1 h-1'} ${sectionConfig.primary.bg60} rounded-full`}
                     style={{
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100}%`,
@@ -257,13 +264,13 @@ const TechBackground = ({ children, section = 'default' }) => {
                     {techParticles()}
                     
                     {/* Enhanced Corner Tech Accents with animations */}
-                    <div className={`absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 border-${sectionConfig.primaryColor}/50 opacity-70`} 
+                    <div className={`absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 ${sectionConfig.primary.border50} opacity-70`} 
                          style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none' }} />
-                    <div className={`absolute top-8 right-8 w-12 h-12 border-r-2 border-t-2 border-${sectionConfig.secondaryColor}/50 opacity-70`}
+                    <div className={`absolute top-8 right-8 w-12 h-12 border-r-2 border-t-2 ${sectionConfig.secondary.border50} opacity-70`}
                          style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '1s' }} />
-                    <div className={`absolute bottom-8 left-8 w-12 h-12 border-l-2 border-b-2 border-${sectionConfig.accentColor}/50 opacity-70`}
+                    <div className={`absolute bottom-8 left-8 w-12 h-12 border-l-2 border-b-2 ${sectionConfig.accent.border50} opacity-70`}
                          style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '2s' }} />
-                    <div className={`absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 border-${sectionConfig.primaryColor}/50 opacity-70`}
+                    <div className={`absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 ${sectionConfig.primary.border50} opacity-70`}
                          style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '3s' }} />
                 </>
             )}
