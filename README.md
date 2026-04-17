@@ -135,7 +135,7 @@ portfolio/
 
 ### Sanity Studio Dashboard
 
-Access your CMS at: **[virtus-portfolio.sanity.studio](https://virtus-portfolio.sanity.studio)**
+Access your CMS at: **[your-project.sanity.studio](https://your-project.sanity.studio)**
 
 | Content Type | What You Can Edit |
 |--------------|-------------------|
@@ -147,7 +147,7 @@ Access your CMS at: **[virtus-portfolio.sanity.studio](https://virtus-portfolio.
 
 ### Updating Content
 
-1. Go to [virtus-portfolio.sanity.studio](https://virtus-portfolio.sanity.studio)
+1. Go to [`https://your-project.sanity.studio`](https://your-project.sanity.studio)
 2. Log in with your Sanity account
 3. Edit any section
 4. Click **"Publish"** to save changes
@@ -207,7 +207,7 @@ Studio will be available at: `https://your-project.sanity.studio`
 The Sanity project is configured in `studio/sanity.config.ts`:
 
 ```typescript
-projectId: '6ajwuesb'
+projectId: 'your_project_id'
 dataset: 'production'
 ```
 
