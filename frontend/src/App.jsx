@@ -13,16 +13,6 @@ import Contact from './components/Contact';
 
 /**
  * App Component
- * 
- * Main application component that orchestrates the entire portfolio layout.
- * Uses TechBackground wrapper for each section to provide consistent animated backgrounds
- * while maintaining section-specific visual variations.
- * 
- * Architecture:
- * - Fixed navigation at the top
- * - Main content sections wrapped in TechBackground components
- * - Each section has unique background configurations
- * 
  * @component
  */
 function App() {
@@ -30,29 +20,29 @@ function App() {
     <div className="relative overflow-x-hidden">
       {/* Fixed Navigation */}
       <Navbar />
-      
+
       {/* Main Content - Ensure proper spacing for fixed navbar */}
       <main className="relative">
         {/* Hero Section - Full Screen Landing */}
         <TechBackground section="hero">
           <Hero />
         </TechBackground>
-        
+
         {/* About Section - Personal & Professional Info */}
         <TechBackground section="about">
           <About />
         </TechBackground>
-        
+
         {/* Services Section - Skills & Expertise */}
         <TechBackground section="services">
           <Service />
         </TechBackground>
-        
+
         {/* Projects Section - Portfolio Showcase */}
         <TechBackground section="projects">
           <Projects />
         </TechBackground>
-        
+
         {/* Contact Section - Communication & Social */}
         <TechBackground section="contact">
           <Contact />
