@@ -22,10 +22,15 @@ import PropTypes from 'prop-types';
  *   </TechBackground>
  * )
  */
-const TechBackground = ({ children, section = 'default' }) => {
+const TechBackground = ({ children }) => {
     // State management for animations and performance
     const [isVisible, setIsVisible] = useState(false);
     const [animationsEnabled, setAnimationsEnabled] = useState(true);
+
+    // Fade in after initial mount to avoid blocking first paint
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
 
     // Map base colors to their full Tailwind class equivalents for the JIT compiler
     const colorMap = {
@@ -36,70 +41,17 @@ const TechBackground = ({ children, section = 'default' }) => {
 
     // Section-specific configurations for variety
     const sectionConfig = useMemo(() => {
-        const configs = {
-            hero: {
-                primary: colorMap['blue-500'],
-                secondary: colorMap['purple-500'],
-                accent: colorMap['cyan-500'],
-                particleCount: 6,
-                gridOpacity: 0.25,
-                orbSize: { primary: 'w-32 h-32', secondary: 'w-24 h-24', tertiary: 'w-20 h-20' }
-            },
-            about: {
-                primary: colorMap['purple-500'],
-                secondary: colorMap['cyan-500'],
-                accent: colorMap['blue-500'],
-                particleCount: 5,
-                gridOpacity: 0.22,
-                orbSize: { primary: 'w-28 h-28', secondary: 'w-20 h-20', tertiary: 'w-16 h-16' }
-            },
-            services: {
-                primary: colorMap['cyan-500'],
-                secondary: colorMap['blue-500'],
-                accent: colorMap['purple-500'],
-                particleCount: 5,
-                gridOpacity: 0.20,
-                orbSize: { primary: 'w-30 h-30', secondary: 'w-22 h-22', tertiary: 'w-18 h-18' }
-            },
-            projects: {
-                primary: colorMap['blue-500'],
-                secondary: colorMap['cyan-500'],
-                accent: colorMap['purple-500'],
-                particleCount: 6,
-                gridOpacity: 0.24,
-                orbSize: { primary: 'w-36 h-36', secondary: 'w-26 h-26', tertiary: 'w-22 h-22' }
-            },
-            contact: {
-                primary: colorMap['purple-500'],
-                secondary: colorMap['blue-500'],
-                accent: colorMap['cyan-500'],
-                particleCount: 4,
-                gridOpacity: 0.18,
-                orbSize: { primary: 'w-24 h-24', secondary: 'w-18 h-18', tertiary: 'w-14 h-14' }
-            }
+        return {
+            primary: colorMap['blue-500'],
+            secondary: colorMap['purple-500'],
+            accent: colorMap['cyan-500'],
+            particleCount: 15,
+            gridOpacity: 0.25,
+            orbSize: { primary: 'w-32 h-32', secondary: 'w-24 h-24', tertiary: 'w-20 h-20' }
         };
-        return configs[section] || configs.hero;
-    }, [section]);
+    }, []);
 
-    // Lazy loading with Intersection Observer
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.disconnect(); // Stop observing once loaded
-                }
-            },
-            { threshold: 0.1, rootMargin: '50px' }
-        );
 
-        const element = document.getElementById(`tech-bg-${section}`);
-        if (element) {
-            observer.observe(element);
-        }
-
-        return () => observer.disconnect();
-    }, [section]);
 
     // Performance optimization: disable animations on low-end devices
     useEffect(() => {
@@ -240,55 +192,46 @@ const TechBackground = ({ children, section = 'default' }) => {
     }, [isVisible, animationsEnabled, sectionConfig]);
 
     return (
-        <div 
-            id={`tech-bg-${section}`}
-            className="relative min-h-screen overflow-hidden"
-        >
-            {/* Enhanced gradient background with mobile menu style */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-black to-slate-800">
+        <>
+            <div 
+                id="tech-bg-global"
+                className="fixed inset-0 z-[-1] overflow-hidden bg-gradient-to-br from-slate-900 via-black to-slate-800"
+            >
                 {/* Additional gradient layers for depth */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/10 via-transparent to-purple-900/10" />
                 <div className="absolute inset-0 bg-gradient-to-bl from-cyan-900/5 via-transparent to-blue-900/5" />
+                
+                {/* Tech elements - only render when visible */}
+                {isVisible && (
+                    <div className="transition-opacity duration-1000 opacity-100">
+                        {gridPattern()}
+                        {animatedOrbs()}
+                        {techParticles()}
+                        
+                        <div className={`absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 ${sectionConfig.primary.border50} opacity-70`} 
+                             style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none' }} />
+                        <div className={`absolute top-8 right-8 w-12 h-12 border-r-2 border-t-2 ${sectionConfig.secondary.border50} opacity-70`}
+                             style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '1s' }} />
+                        <div className={`absolute bottom-8 left-8 w-12 h-12 border-l-2 border-b-2 ${sectionConfig.accent.border50} opacity-70`}
+                             style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '2s' }} />
+                        <div className={`absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 ${sectionConfig.primary.border50} opacity-70`}
+                             style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '3s' }} />
+                    </div>
+                )}
             </div>
-            
-            {/* Tech elements - only render when visible */}
-            {isVisible && (
-                <>
-                    {/* Enhanced Grid Pattern */}
-                    {gridPattern()}
-                    
-                    {/* Enhanced Animated Orbs */}
-                    {animatedOrbs()}
-                    
-                    {/* Enhanced Tech Particles */}
-                    {techParticles()}
-                    
-                    {/* Enhanced Corner Tech Accents with animations */}
-                    <div className={`absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 ${sectionConfig.primary.border50} opacity-70`} 
-                         style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none' }} />
-                    <div className={`absolute top-8 right-8 w-12 h-12 border-r-2 border-t-2 ${sectionConfig.secondary.border50} opacity-70`}
-                         style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '1s' }} />
-                    <div className={`absolute bottom-8 left-8 w-12 h-12 border-l-2 border-b-2 ${sectionConfig.accent.border50} opacity-70`}
-                         style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '2s' }} />
-                    <div className={`absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 ${sectionConfig.primary.border50} opacity-70`}
-                         style={{ animation: animationsEnabled ? 'borderGlow 4s ease-in-out infinite' : 'none', animationDelay: '3s' }} />
-                </>
-            )}
             
             {/* Content */}
-            <div className="relative z-10">
+            <div className="relative z-10 w-full h-full">
                 {children}
             </div>
-        </div>
+        </>
     );
 };
 
 // PropTypes for type checking and documentation
 TechBackground.propTypes = {
     /** Content to be rendered with the tech background */
-    children: PropTypes.node.isRequired,
-    /** Section identifier for different visual configurations */
-    section: PropTypes.oneOf(['hero', 'about', 'services', 'projects', 'contact', 'default'])
+    children: PropTypes.node.isRequired
 };
 
 export default TechBackground;

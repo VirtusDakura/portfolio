@@ -23,28 +23,20 @@ function App() {
 
       {/* Main Content - Ensure proper spacing for fixed navbar */}
       <main className="relative">
-        {/* Hero Section - Full Screen Landing */}
-        <TechBackground section="hero">
+        <TechBackground>
+          {/* Hero Section - Full Screen Landing */}
           <Hero />
-        </TechBackground>
 
-        {/* About Section - Personal & Professional Info */}
-        <TechBackground section="about">
+          {/* About Section - Personal & Professional Info */}
           <About />
-        </TechBackground>
 
-        {/* Services Section - Skills & Expertise */}
-        <TechBackground section="services">
+          {/* Services Section - Skills & Expertise */}
           <Service />
-        </TechBackground>
 
-        {/* Projects Section - Portfolio Showcase */}
-        <TechBackground section="projects">
+          {/* Projects Section - Portfolio Showcase */}
           <Projects />
-        </TechBackground>
 
-        {/* Contact Section - Communication & Social */}
-        <TechBackground section="contact">
+          {/* Contact Section - Communication & Social */}
           <Contact />
         </TechBackground>
       </main>
