@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaPhone, FaMapMarkedAlt, FaLinkedin, FaGithub, FaPaperPlane, FaHeart, FaArrowUp } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
-import { saveContactMessage } from '../utils/sanity';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -102,49 +101,29 @@ const Contact = () => {
         setSubmitStatus('');
 
         try {
-            // Run both operations in parallel
-            const results = await Promise.allSettled([
-                // 1. Save to Sanity CMS
-                saveContactMessage({
+            // Send to serverless API which handles both Sanity and Email safely
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
                     subject: formData.subject,
                     message: formData.message,
-                }),
-                // 2. Send email via Web3Forms
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        access_key: import.meta.env.VITE_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HERE',
-                        name: formData.name,
-                        email: formData.email,
-                        subject: formData.subject,
-                        message: formData.message,
-                        from_name: 'Portfolio Contact Form',
-                    })
-                }).then(res => res.json())
-            ]);
+                })
+            });
 
-            // Check results - success if at least one worked
-            const sanityResult = results[0];
-            const emailResult = results[1];
+            const result = await response.json();
 
-            const sanitySuccess = sanityResult.status === 'fulfilled';
-            const emailSuccess = emailResult.status === 'fulfilled' && emailResult.value?.success;
-
-            if (sanitySuccess || emailSuccess) {
+            if (response.ok && result.success) {
                 setSubmitStatus('success');
                 setFormData({ name: '', email: '', subject: '', message: '' });
-
-                // Log any partial failures for debugging
-                if (!sanitySuccess) console.warn('Sanity save failed:', sanityResult.reason);
-                if (!emailSuccess) console.warn('Email send failed:', emailResult.reason || emailResult.value);
             } else {
-                throw new Error('Both operations failed');
+                console.warn('API error:', result.error || 'Unknown error');
+                throw new Error(result.error || 'Failed to process message');
             }
         } catch (error) {
             console.error('Error sending message:', error);
