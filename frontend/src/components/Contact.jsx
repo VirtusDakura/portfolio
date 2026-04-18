@@ -13,7 +13,6 @@ const Contact = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState('');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [showScrollTop, setShowScrollTop] = useState(false);
 
     // Check if mobile menu is open by monitoring body overflow and scroll position
     useEffect(() => {
@@ -23,8 +22,7 @@ const Contact = () => {
         };
 
         const handleScroll = () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            setShowScrollTop(scrollTop > 300); // Show button after scrolling 300px
+            // Placeholder for scroll logic if needed
         };
 
         // Create observer for body style changes
@@ -133,37 +131,7 @@ const Contact = () => {
         }
     };
 
-    const scrollToTop = () => {
-        // Modern smooth scroll with easing
-        const scrollToTopWithEasing = () => {
-            const startPosition = window.pageYOffset;
-            const targetPosition = 0;
-            const distance = startPosition - targetPosition;
-            const duration = 1000; // 1 second
-            let start = null;
 
-            const easeInOutCubic = (t) => {
-                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-            };
-
-            const animation = (currentTime) => {
-                if (start === null) start = currentTime;
-                const timeElapsed = currentTime - start;
-                const progress = Math.min(timeElapsed / duration, 1);
-                const ease = easeInOutCubic(progress);
-
-                window.scrollTo(0, startPosition - distance * ease);
-
-                if (timeElapsed < duration) {
-                    requestAnimationFrame(animation);
-                }
-            };
-
-            requestAnimationFrame(animation);
-        };
-
-        scrollToTopWithEasing();
-    };
 
     const contactInfo = [
         {
@@ -398,21 +366,7 @@ const Contact = () => {
                 </ScrollAnimation>
             </div>
 
-            {/* Dynamic Scroll to Top Button */}
-            <button
-                onClick={scrollToTop}
-                className={`fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg flex items-center justify-center shadow-lg hover:shadow-blue-500/25 transform hover:scale-110 transition-all duration-500 z-50 cursor-pointer ${(showScrollTop && !isMobileMenuOpen)
-                    ? 'opacity-100 pointer-events-auto translate-y-0'
-                    : 'opacity-0 pointer-events-none translate-y-4'
-                    }`}
-                title='Scroll to top'
-                style={{
-                    willChange: 'transform, opacity',
-                    backdropFilter: 'blur(10px)'
-                }}
-            >
-                <FaArrowUp className="transform group-hover:scale-110 transition-transform duration-300" />
-            </button>
+
         </section>
     );
 };
