@@ -97,7 +97,7 @@ const About = () => {
                                 </p>
                             ))}
 
-                            {/* Stats Grid - Now under the text content */}
+                            {/* Stats Grid*/}
                             <div className='grid grid-cols-2 gap-4 sm:gap-6'>
                                 {stats.map((stat, index) => (
                                     <div key={index} className='text-center bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-gray-700'>
@@ -110,7 +110,7 @@ const About = () => {
                     </ScrollAnimation>
                 </div>
 
-                {/* Technologies Section - Enhanced with proper positioning and responsive design */}
+                {/* Technologies Section */}
                 <div className='w-full mt-8 sm:mt-12 lg:mt-16'>
                     <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                         <ScrollAnimation direction="right" delay={400}>
@@ -119,7 +119,7 @@ const About = () => {
                                     Technologies I Work With
                                 </h4>
 
-                                {/* Mobile: infinite auto-scrolling marquee of tech cards (keeps same visuals) */}
+                                {/*Mobile: infinite auto-scrolling marquee of tech cards*/}
                                 <div className='md:hidden relative mb-4'>
                                     <div className='mobile-marquee overflow-hidden px-4'>
                                         <div className='marquee-track flex items-center gap-4 min-w-[200%]' role='list' aria-label='Technologies I work with'>
