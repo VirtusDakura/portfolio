@@ -1,25 +1,15 @@
 import { createClient } from '@sanity/client';
 
-// Server-side Sanity client — token is NEVER sent to the browser
+// Server-side Sanity client
 const sanityClient = createClient({
   projectId: '6ajwuesb',
   dataset: 'production',
   useCdn: false,
   apiVersion: '2024-01-06',
-  token: process.env.SANITY_WRITE_TOKEN, // Set in Vercel dashboard, NOT prefixed with VITE_
+  token: process.env.SANITY_WRITE_TOKEN,
 });
 
-/**
- * POST /api/contact
- *
- * Accepts { name, email, subject, message } and:
- *   1. Saves a contactMessage document in Sanity CMS
- *   2. Sends an email notification via Web3Forms
- *
- * Both operations run in parallel; success if at least one succeeds.
- */
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -49,7 +39,7 @@ export default async function handler(req, res) {
   try {
     // Run both operations in parallel
     const results = await Promise.allSettled([
-      // 1. Save to Sanity CMS
+      // Saves a contactMessage document in Sanity CMS
       sanityClient.create({
         _type: 'contactMessage',
         name: name.trim(),
@@ -59,7 +49,7 @@ export default async function handler(req, res) {
         receivedAt: new Date().toISOString(),
         read: false,
       }),
-      // 2. Send email via Web3Forms
+      // Send email via Web3Forms
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -67,7 +57,7 @@ export default async function handler(req, res) {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          access_key: process.env.WEB3FORMS_KEY, // Server-side only
+          access_key: process.env.WEB3FORMS_KEY,
           name: name.trim(),
           email: email.trim(),
           subject: subject.trim(),
