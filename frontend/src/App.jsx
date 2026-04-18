@@ -10,6 +10,7 @@ import About from './components/About';
 import Service from './components/Service';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import WhatsAppButton from './components/WhatsAppButton';
 
 /**
  * App Component
@@ -39,6 +40,9 @@ function App() {
           {/* Contact Section - Communication & Social */}
           <Contact />
         </TechBackground>
+
+        {/* Floating Social Actions */}
+        <WhatsAppButton />
       </main>
     </div>
   );
