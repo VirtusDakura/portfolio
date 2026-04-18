@@ -2,8 +2,6 @@
 
 A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. Features a **Sanity CMS** integration for easy content management, immersive animations, and a tech-aesthetic design.
 
-![Portfolio Preview](https://virtus-dakura.vercel.app)
-
 ## ✨ Features
 
 ### 🎨 Design & UX
@@ -13,7 +11,7 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 - **Accessibility First**: WCAG compliant with reduced motion support
 
 ### 🛠️ Technical Excellence
-- **React 19**: Latest React with modern hooks and best practices
+- **React**: Latest React with modern hooks and best practices
 - **Vite**: Lightning-fast development and optimized builds
 - **Tailwind CSS**: Utility-first styling with custom animations
 - **Sanity CMS**: Headless CMS for content management
@@ -223,7 +221,7 @@ npx sanity cors add https://your-domain.com  # Production
 
 ## 🛠️ Built With
 
-- **[React 19](https://react.dev/)** - UI library
+- **[React](https://react.dev/)** - UI library
 - **[Vite](https://vite.dev/)** - Build tool
 - **[Tailwind CSS](https://tailwindcss.com/)** - CSS framework
 - **[Sanity](https://www.sanity.io/)** - Headless CMS
