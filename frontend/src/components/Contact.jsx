@@ -22,7 +22,7 @@ const Contact = () => {
         };
 
         const handleScroll = () => {
-            // Placeholder for scroll logic if needed
+            // Placeholder for scroll logic
         };
 
         // Create observer for body style changes
