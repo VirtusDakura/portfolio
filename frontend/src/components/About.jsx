@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { FaCode, FaLayerGroup, FaBolt, FaCheckCircle } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
 import { getAbout, urlFor } from '../utils/sanity';
 import { getIcon, getIconColor } from '../utils/iconMap';
@@ -11,33 +12,54 @@ const About = () => {
         queryFn: getAbout
     });
 
-    // Get data from Sanity
     const title = aboutData?.title || 'About Me';
-    const subtitle = aboutData?.subtitle || '';
-    const heading = aboutData?.heading || '';
+    const subtitle = aboutData?.subtitle || 'Engineering background, technical principles, and core competencies.';
+    const heading = aboutData?.heading || 'Building modern, reliable software solutions.';
     const paragraphs = aboutData?.paragraphs || [];
-    const stats = aboutData?.stats || [];
     const techStack = aboutData?.techStack || [];
 
-    // Get about image URL
     const aboutImageUrl = aboutData?.aboutImage
         ? urlFor(aboutData.aboutImage).width(800).url()
         : null;
 
-    // Preload image
     useEffect(() => {
+        if (!aboutImageUrl) return;
         const img = new Image();
         img.onload = () => setImageLoaded(true);
         img.src = aboutImageUrl;
     }, [aboutImageUrl]);
 
+    const engineeringPrinciples = [
+        {
+            icon: <FaCode className="text-indigo-400" />,
+            title: 'Clean & Modular Code',
+            description: 'Maintainable, type-safe architecture following modern React, Node.js, and API design standards.'
+        },
+        {
+            icon: <FaBolt className="text-indigo-400" />,
+            title: 'Performance & Optimization',
+            description: 'Optimized render cycles, serverless functions, database queries, and lightweight assets.'
+        },
+        {
+            icon: <FaLayerGroup className="text-indigo-400" />,
+            title: 'Full-Stack Execution',
+            description: 'End-to-end feature delivery, seamlessly connecting database schema design with client UX.'
+        },
+        {
+            icon: <FaCheckCircle className="text-indigo-400" />,
+            title: 'Production Readiness',
+            description: 'Robust error handling, environment security, CI/CD integration, and resilient cloud deployments.'
+        }
+    ];
+
     if (loading) {
         return (
-            <section id='about' className='text-white py-12 sm:py-16 lg:py-20'>
+            <section id='about' className='text-white py-16 sm:py-20'>
                 <div className='container mx-auto px-4 text-center'>
-                    <div className='animate-pulse'>
-                        <div className='h-12 bg-gray-700 rounded w-48 mx-auto mb-4'></div>
-                        <div className='h-6 bg-gray-700 rounded w-96 mx-auto'></div>
+                    <div className='animate-pulse max-w-4xl mx-auto'>
+                        <div className='h-8 bg-zinc-800 rounded w-32 mb-4'></div>
+                        <div className='h-12 bg-zinc-800 rounded w-64 mb-6'></div>
+                        <div className='h-32 bg-zinc-800 rounded w-full'></div>
                     </div>
                 </div>
             </section>
@@ -45,137 +67,100 @@ const About = () => {
     }
 
     return (
-        <section id='about' className='text-white py-12 sm:py-16 lg:py-20'>
-            <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32'>
-                <ScrollAnimation direction="up" delay={100} className='text-center mb-12 sm:mb-16'>
-                    <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
-                        About <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Me</span>
+        <section id='about' className='text-white py-16 sm:py-24 border-t border-zinc-800/60'>
+            <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-28'>
+                {/* Section Tag */}
+                <ScrollAnimation direction="up" delay={100} className='mb-12'>
+                    <span className='text-xs font-mono font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-md'>
+                        01 // ABOUT & ENGINEERING FOCUS
+                    </span>
+                    <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 text-white tracking-tight'>
+                        {title}
                     </h2>
-                    <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0'>
+                    <p className='text-zinc-400 text-base sm:text-lg max-w-2xl mt-2'>
                         {subtitle}
                     </p>
                 </ScrollAnimation>
 
-                <div className='grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center mb-12 sm:mb-16'>
-                    {/* Image Only */}
-                    <ScrollAnimation direction="left" delay={200}>
-                        <div className='relative'>
-                            <div className='relative group'>
-                                <div className='absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300'></div>
-                                {!imageLoaded && (
-                                    <div className='relative w-full h-72 sm:h-96 lg:h-[28rem] xl:h-[32rem] rounded-2xl bg-gray-800 animate-pulse flex items-center justify-center'>
-                                        <div className='text-gray-400'>Loading...</div>
+                <div className='grid lg:grid-cols-12 gap-10 lg:gap-12 items-start mb-16 sm:mb-20'>
+                    {/* Left Column: Narrative */}
+                    <ScrollAnimation direction="left" delay={200} className='lg:col-span-7'>
+                        <h3 className='text-2xl sm:text-3xl font-bold mb-6 text-white tracking-tight leading-snug'>
+                            {heading}
+                        </h3>
+
+                        <div className='space-y-4 text-zinc-400 text-base leading-relaxed mb-8'>
+                            {paragraphs.length > 0 ? (
+                                paragraphs.map((paragraph, index) => (
+                                    <p key={index}>{paragraph}</p>
+                                ))
+                            ) : (
+                                <p>
+                                    I am a software engineer focused on building clean, robust, and scalable applications. With experience across frontend systems, RESTful APIs, and database engineering, I turn complex problems into reliable code.
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Engineering Principles */}
+                        <div className='grid sm:grid-cols-2 gap-4 pt-4 border-t border-zinc-800/80'>
+                            {engineeringPrinciples.map((principle, index) => (
+                                <div key={index} className='bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-4.5 transition-colors duration-200 hover:border-zinc-700'>
+                                    <div className='text-lg mb-2 flex items-center gap-2 font-semibold text-white'>
+                                        {principle.icon}
+                                        <span>{principle.title}</span>
                                     </div>
-                                )}
-                                <img
-                                    src={aboutImageUrl}
-                                    alt="About Me"
-                                    className={`relative w-full h-72 sm:h-96 lg:h-[28rem] xl:h-[32rem] rounded-2xl object-cover shadow-2xl transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                                    onLoad={() => setImageLoaded(true)}
-                                />
-                            </div>
+                                    <p className='text-xs text-zinc-400 leading-relaxed'>
+                                        {principle.description}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </ScrollAnimation>
 
-                    {/* Content and Stats */}
-                    <ScrollAnimation direction="right" delay={300}>
-                        <div>
-                            <h3 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 leading-tight'>
-                                {heading.includes('Passion') ? (
-                                    <>
-                                        {heading.split('Passion')[0]}
-                                        <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Passion</span>
-                                        {heading.split('Passion')[1]}
-                                    </>
-                                ) : (
-                                    heading
-                                )}
-                            </h3>
-                            {paragraphs.map((paragraph, index) => (
-                                <p key={index} className='text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base'>
-                                    {paragraph}
-                                </p>
-                            ))}
-
-                            {/* Stats Grid*/}
-                            <div className='grid grid-cols-2 gap-4 sm:gap-6'>
-                                {stats.map((stat, index) => (
-                                    <div key={index} className='text-center bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-gray-700'>
-                                        <h4 className='text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400 mb-1 sm:mb-2'>{stat.number}</h4>
-                                        <p className='text-gray-300 text-xs sm:text-sm'>{stat.label}</p>
-                                    </div>
-                                ))}
-                            </div>
+                    {/* Right Column: Image & Bio Card */}
+                    <ScrollAnimation direction="right" delay={300} className='lg:col-span-5'>
+                        <div className='relative group'>
+                            <div className='absolute inset-0 bg-indigo-500/10 rounded-2xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-300'></div>
+                            {!imageLoaded && (
+                                <div className='relative w-full h-80 sm:h-96 rounded-2xl bg-zinc-900 border border-zinc-800 animate-pulse flex items-center justify-center'>
+                                    <div className='text-zinc-500 text-sm font-medium'>Loading profile image...</div>
+                                </div>
+                            )}
+                            <img
+                                src={aboutImageUrl}
+                                alt="About Virtus Dakura"
+                                className={`relative w-full h-80 sm:h-96 rounded-2xl object-cover border border-zinc-800 shadow-xl transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                                onLoad={() => setImageLoaded(true)}
+                            />
                         </div>
                     </ScrollAnimation>
                 </div>
 
-                {/* Technologies Section */}
-                <div className='w-full mt-8 sm:mt-12 lg:mt-16'>
-                    <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-                        <ScrollAnimation direction="right" delay={400}>
-                            <div className='text-center'>
-                                <h4 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent'>
-                                    Technologies I Work With
-                                </h4>
+                {/* Technologies Grid */}
+                <div className='pt-8 border-t border-zinc-800/60'>
+                    <ScrollAnimation direction="up" delay={400}>
+                        <div className='mb-8'>
+                            <h4 className='text-xl sm:text-2xl font-bold text-white tracking-tight'>
+                                Core Technologies
+                            </h4>
+                            <p className='text-xs text-zinc-400 mt-1'>Languages, frameworks, databases, and development tooling I build with daily.</p>
+                        </div>
 
-                                {/*Mobile: infinite auto-scrolling marquee of tech cards*/}
-                                <div className='md:hidden relative mb-4'>
-                                    <div className='mobile-marquee overflow-hidden px-4'>
-                                        <div className='marquee-track flex items-center gap-4 min-w-[200%]' role='list' aria-label='Technologies I work with'>
-                                            {/* Duplicate the techStack for seamless loop */}
-                                            {Array.from({ length: 2 }).map((_, dup) => (
-                                                techStack.map((tech, index) => (
-                                                    <div key={`${dup}-${index}`} className='flex-shrink-0'>
-                                                        <div className='bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-gray-600 transition-all duration-300 transform-gpu w-24 sm:w-28'>
-                                                            <div className='text-2xl sm:text-3xl mb-3 flex justify-center'>
-                                                                {getIcon(tech.icon, tech.color || getIconColor(tech.icon))}
-                                                            </div>
-                                                            <p className='text-xs sm:text-sm text-gray-300 transition-colors duration-300 text-center font-medium'>
-                                                                {tech.name}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                ))
-                                            ))}
+                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4'>
+                            {techStack.map((tech, index) => (
+                                <div key={index} className='group'>
+                                    <div className='bg-zinc-900/60 backdrop-blur-sm rounded-xl p-4 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-200 flex flex-col items-center justify-center text-center h-full'>
+                                        <div className='text-3xl mb-2 flex justify-center transform group-hover:scale-105 transition-transform duration-200'>
+                                            {getIcon(tech.icon, tech.color || getIconColor(tech.icon))}
                                         </div>
+                                        <p className='text-xs text-zinc-300 group-hover:text-white transition-colors duration-200 font-medium tracking-tight'>
+                                            {tech.name}
+                                        </p>
                                     </div>
                                 </div>
-
-                                {/* Tablet Grid - Medium screens */}
-                                <div className='hidden md:grid lg:hidden grid-cols-4 gap-6 mb-4'>
-                                    {techStack.map((tech, index) => (
-                                        <div key={index} className='group'>
-                                            <div className='bg-gray-800/60 backdrop-blur-sm rounded-2xl p-5 border border-gray-600 hover:border-purple-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/25'>
-                                                <div className='text-3xl mb-4 flex justify-center transform group-hover:scale-110 transition-transform duration-300'>
-                                                    {getIcon(tech.icon, tech.color || getIconColor(tech.icon))}
-                                                </div>
-                                                <p className='text-sm text-gray-300 group-hover:text-white transition-colors duration-300 text-center font-medium'>
-                                                    {tech.name}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Desktop Grid - Large screens */}
-                                <div className='hidden lg:grid lg:grid-cols-8 gap-6'>
-                                    {techStack.map((tech, index) => (
-                                        <div key={index} className='group'>
-                                            <div className='bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-600 hover:border-pink-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:shadow-pink-500/25'>
-                                                <div className='text-4xl mb-4 flex justify-center transform group-hover:scale-110 transition-transform duration-300'>
-                                                    {getIcon(tech.icon, tech.color || getIconColor(tech.icon))}
-                                                </div>
-                                                <p className='text-sm text-gray-300 group-hover:text-white transition-colors duration-300 text-center font-medium'>
-                                                    {tech.name}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </ScrollAnimation>
-                    </div>
+                            ))}
+                        </div>
+                    </ScrollAnimation>
                 </div>
             </div>
         </section>
