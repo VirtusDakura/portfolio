@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaPhone, FaMapMarkedAlt, FaLinkedin, FaGithub, FaPaperPlane, FaHeart, FaArrowUp } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaHeart, FaCopy, FaCheck } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
 
 const Contact = () => {
@@ -12,38 +12,15 @@ const Contact = () => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState('');
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [copied, setCopied] = useState(false);
 
-    // Check if mobile menu is open by monitoring body overflow and scroll position
-    useEffect(() => {
-        const checkMobileMenu = () => {
-            const bodyOverflow = document.body.style.overflow;
-            setIsMobileMenuOpen(bodyOverflow === 'hidden');
-        };
+    const emailAddress = 'dakuravirtus@gmail.com';
 
-        const handleScroll = () => {
-            // Placeholder for scroll logic
-        };
-
-        // Create observer for body style changes
-        const observer = new MutationObserver(checkMobileMenu);
-        observer.observe(document.body, {
-            attributes: true,
-            attributeFilter: ['style']
-        });
-
-        // Add scroll listener
-        window.addEventListener('scroll', handleScroll);
-
-        // Initial checks
-        checkMobileMenu();
-        handleScroll();
-
-        return () => {
-            observer.disconnect();
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    const handleCopyEmail = () => {
+        navigator.clipboard.writeText(emailAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -51,7 +28,6 @@ const Contact = () => {
             ...prev,
             [name]: value
         }));
-        // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -62,33 +38,23 @@ const Contact = () => {
 
     const validateForm = () => {
         const newErrors = {};
-
-        if (!formData.name.trim()) {
-            newErrors.name = 'Name is required';
-        }
-
+        if (!formData.name.trim()) newErrors.name = 'Name is required';
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required';
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors.email = 'Email is invalid';
         }
-
-        if (!formData.subject.trim()) {
-            newErrors.subject = 'Subject is required';
-        }
-
+        if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
         if (!formData.message.trim()) {
             newErrors.message = 'Message is required';
         } else if (formData.message.trim().length < 10) {
             newErrors.message = 'Message must be at least 10 characters';
         }
-
         return newErrors;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const newErrors = validateForm();
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -99,19 +65,13 @@ const Contact = () => {
         setSubmitStatus('');
 
         try {
-            // Send to serverless API which handles both Sanity and Email safely
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    subject: formData.subject,
-                    message: formData.message,
-                })
+                body: JSON.stringify(formData)
             });
 
             const result = await response.json();
@@ -120,8 +80,7 @@ const Contact = () => {
                 setSubmitStatus('success');
                 setFormData({ name: '', email: '', subject: '', message: '' });
             } else {
-                console.warn('API error:', result.error || 'Unknown error');
-                throw new Error(result.error || 'Failed to process message');
+                throw new Error(result.error || 'Failed to send message');
             }
         } catch (error) {
             console.error('Error sending message:', error);
@@ -131,133 +90,109 @@ const Contact = () => {
         }
     };
 
-
-
-    const contactInfo = [
-        {
-            icon: <FaEnvelope className="text-blue-500" />,
-            label: 'Email',
-            value: 'dakuravirtus@gmail.com',
-            link: 'mailto:dakuravirtus@gmail.com'
-        },
-        {
-            icon: <FaPhone className="text-green-500" />,
-            label: 'Phone',
-            value: '+233 596 621 148',
-            link: 'tel:+2330596621148'
-        },
-        {
-            icon: <FaMapMarkedAlt className="text-purple-500" />,
-            label: 'Location',
-            value: 'Accra, Ghana',
-            link: '#'
-        }
-    ];
-
     const socialLinks = [
         {
-            icon: <FaLinkedin />,
-            label: 'LinkedIn',
-            url: 'https://linkedin.com/in/virtus-dakura',
-            color: 'hover:text-blue-500'
+            icon: <FaLinkedin size={18} />,
+            label: 'LinkedIn Profile',
+            url: 'https://linkedin.com/in/virtus-dakura'
         },
         {
-            icon: <FaGithub />,
-            label: 'GitHub',
-            url: 'https://github.com/VirtusDakura',
-            color: 'hover:text-gray-300'
+            icon: <FaGithub size={18} />,
+            label: 'GitHub Profile',
+            url: 'https://github.com/VirtusDakura'
         }
     ];
 
     return (
-        <section id='contact' className='text-white pt-12 sm:pt-16 lg:pt-20 pb-8'>
-            <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32'>
+        <section id='contact' className='text-white py-16 sm:py-24 border-t border-zinc-800/60 pb-12'>
+            <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-28'>
+                {/* Section Header */}
                 <ScrollAnimation direction="up">
-                    <div className='text-center mb-12 sm:mb-16'>
-                        <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4'>
-                            Get In <span className='bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>Touch</span>
+                    <div className='mb-12'>
+                        <span className='text-xs font-mono font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-md'>
+                            04 // CONTACT
+                        </span>
+                        <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 text-white tracking-tight'>
+                            Get In Touch
                         </h2>
-                        <p className='text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0'>
-                            Ready to start your next project? Let's discuss how we can work together to bring your ideas to life.
+                        <p className='text-zinc-400 text-base sm:text-lg max-w-2xl mt-2'>
+                            Interested in collaborating, hiring for full-stack roles, or discussing software projects? Reach out directly.
                         </p>
                     </div>
                 </ScrollAnimation>
 
-                <div className='grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16'>
-                    {/* Contact Information */}
-                    <ScrollAnimation direction="left">
-                        <div className='px-2 sm:px-0 text-center lg:text-left'>
-                            <h3 className='text-xl sm:text-2xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
-                                Let's Connect
-                            </h3>
+                <div className='grid lg:grid-cols-12 gap-10 lg:gap-12 items-start'>
+                    {/* Left Column: Direct Contact Details */}
+                    <ScrollAnimation direction="left" className='lg:col-span-5 space-y-6'>
+                        {/* Direct Email Card */}
+                        <div className='bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl'>
+                            <h3 className='text-xl font-bold text-white tracking-tight mb-2'>Direct Email</h3>
+                            <p className='text-xs text-zinc-400 mb-6'>Feel free to send an email directly or copy my address.</p>
 
-                            <p className='text-gray-400 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base'>
-                                I'm always open to discussing new opportunities, innovative projects, and interesting challenges.
-                                Whether you have a question or just want to say hi, I'll do my best to get back to you!
-                            </p>
-
-                            {/* Contact Details */}
-                            <div className='space-y-4 sm:space-y-6 mb-6 sm:mb-8'>
-                                {contactInfo.map((item, index) => (
-                                    <div key={index} className='flex items-center group justify-center lg:justify-start'>
-                                        <div className='w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-full flex items-center justify-center mr-3 sm:mr-4 group-hover:bg-gray-700 transition-colors duration-300'>
-                                            <span className='text-sm sm:text-lg'>{item.icon}</span>
-                                        </div>
-                                        <div>
-                                            <p className='text-gray-500 text-xs sm:text-sm'>{item.label}</p>
-                                            <a
-                                                href={item.link}
-                                                className='text-white hover:text-blue-400 transition-colors duration-300 text-sm sm:text-base'
-                                            >
-                                                {item.value}
-                                            </a>
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className='flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl p-3 mb-4'>
+                                <span className='text-xs sm:text-sm font-mono text-zinc-200 truncate pr-2'>{emailAddress}</span>
+                                <button
+                                    onClick={handleCopyEmail}
+                                    className='flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors duration-200 cursor-pointer shrink-0'
+                                >
+                                    {copied ? <FaCheck className='text-emerald-300' /> : <FaCopy />}
+                                    <span>{copied ? 'Copied' : 'Copy'}</span>
+                                </button>
                             </div>
 
-                            {/* Social Links */}
-                            <div className='text-center lg:text-left'>
-                                <h4 className='text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-300'>Follow Me</h4>
-                                <div className='flex space-x-4 justify-center lg:justify-start'>
-                                    {socialLinks.map((social, index) => (
-                                        <a
-                                            key={index}
-                                            href={social.url}
-                                            target='_blank'
-                                            rel='noopener noreferrer'
-                                            className={`w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:transform hover:scale-110 cursor-pointer`}
-                                            title={social.label}
-                                        >
-                                            <span className='text-sm sm:text-lg'>{social.icon}</span>
-                                        </a>
-                                    ))}
+                            <div className='space-y-3 pt-4 border-t border-zinc-800/80 text-xs text-zinc-400'>
+                                <div className='flex items-center gap-2.5'>
+                                    <FaMapMarkerAlt className='text-indigo-400' />
+                                    <span>Accra, Ghana • Open to remote worldwide</span>
                                 </div>
+                                <div className='flex items-center gap-2.5'>
+                                    <FaEnvelope className='text-indigo-400' />
+                                    <span>Replies usually within 24 hours</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Social Links Card */}
+                        <div className='bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 backdrop-blur-sm'>
+                            <h4 className='text-sm font-semibold text-white mb-3'>Social Channels</h4>
+                            <div className='flex gap-3'>
+                                {socialLinks.map((social, index) => (
+                                    <a
+                                        key={index}
+                                        href={social.url}
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                        className='flex-1 flex items-center justify-center gap-2 bg-zinc-950 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white py-2.5 px-4 rounded-xl text-xs font-medium transition-colors duration-200'
+                                    >
+                                        {social.icon}
+                                        <span>{social.label.split(' ')[0]}</span>
+                                    </a>
+                                ))}
                             </div>
                         </div>
                     </ScrollAnimation>
 
-                    {/* Contact Form */}
-                    <ScrollAnimation direction="right">
-                        <div className='bg-gray-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 border border-gray-800'>
-                            <h3 className='text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white'>Send a Message</h3>
+                    {/* Right Column: Contact Form */}
+                    <ScrollAnimation direction="right" className='lg:col-span-7'>
+                        <div className='bg-zinc-900/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-zinc-800/80 shadow-xl'>
+                            <h3 className='text-xl font-bold mb-6 text-white tracking-tight'>Send a Message</h3>
 
                             {submitStatus === 'success' && (
-                                <div className='mb-4 sm:mb-6 p-3 sm:p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400 text-sm sm:text-base'>
-                                    Thank you! Your message has been sent successfully.
+                                <div className='mb-6 p-4 bg-emerald-950/40 border border-emerald-800/80 rounded-xl text-emerald-400 text-sm'>
+                                    Thank you! Your message has been sent successfully. I will get back to you shortly.
                                 </div>
                             )}
 
                             {submitStatus === 'error' && (
-                                <div className='mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-400 text-sm sm:text-base'>
-                                    Sorry, there was an error sending your message. Please try again.
+                                <div className='mb-6 p-4 bg-rose-950/40 border border-rose-800/80 rounded-xl text-rose-400 text-sm'>
+                                    Sorry, there was an issue processing your message. Please email me directly at dakuravirtus@gmail.com.
                                 </div>
                             )}
 
-                            <form onSubmit={handleSubmit} className='space-y-4 sm:space-y-6'>
-                                <div className='grid md:grid-cols-2 gap-4 sm:gap-6'>
+                            <form onSubmit={handleSubmit} className='space-y-5'>
+                                <div className='grid sm:grid-cols-2 gap-5'>
                                     <div>
-                                        <label htmlFor='name' className='block text-sm font-medium text-gray-300 mb-2'>
+                                        <label htmlFor='name' className='block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2'>
                                             Full Name *
                                         </label>
                                         <input
@@ -266,15 +201,15 @@ const Contact = () => {
                                             name='name'
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 text-sm sm:text-base ${errors.name ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
+                                            className={`w-full px-4 py-3 bg-zinc-950 border rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200 text-sm text-white placeholder-zinc-600 ${errors.name ? 'border-rose-500' : 'border-zinc-800'
                                                 }`}
-                                            placeholder='Enter your name'
+                                            placeholder='e.g., Alex Morgan'
                                         />
-                                        {errors.name && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.name}</p>}
+                                        {errors.name && <p className='mt-1 text-xs text-rose-400'>{errors.name}</p>}
                                     </div>
 
                                     <div>
-                                        <label htmlFor='email' className='block text-sm font-medium text-gray-300 mb-2'>
+                                        <label htmlFor='email' className='block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2'>
                                             Email Address *
                                         </label>
                                         <input
@@ -283,16 +218,16 @@ const Contact = () => {
                                             name='email'
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 text-sm sm:text-base ${errors.email ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
+                                            className={`w-full px-4 py-3 bg-zinc-950 border rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200 text-sm text-white placeholder-zinc-600 ${errors.email ? 'border-rose-500' : 'border-zinc-800'
                                                 }`}
-                                            placeholder='Enter your email'
+                                            placeholder='alex@example.com'
                                         />
-                                        {errors.email && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.email}</p>}
+                                        {errors.email && <p className='mt-1 text-xs text-rose-400'>{errors.email}</p>}
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label htmlFor='subject' className='block text-sm font-medium text-gray-300 mb-2'>
+                                    <label htmlFor='subject' className='block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2'>
                                         Subject *
                                     </label>
                                     <input
@@ -301,15 +236,15 @@ const Contact = () => {
                                         name='subject'
                                         value={formData.subject}
                                         onChange={handleChange}
-                                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 text-sm sm:text-base ${errors.subject ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
+                                        className={`w-full px-4 py-3 bg-zinc-950 border rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200 text-sm text-white placeholder-zinc-600 ${errors.subject ? 'border-rose-500' : 'border-zinc-800'
                                             }`}
-                                        placeholder='What is this about?'
+                                        placeholder='Project Inquiry / Full-Stack Role'
                                     />
-                                    {errors.subject && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.subject}</p>}
+                                    {errors.subject && <p className='mt-1 text-xs text-rose-400'>{errors.subject}</p>}
                                 </div>
 
                                 <div>
-                                    <label htmlFor='message' className='block text-sm font-medium text-gray-300 mb-2'>
+                                    <label htmlFor='message' className='block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2'>
                                         Message *
                                     </label>
                                     <textarea
@@ -318,24 +253,24 @@ const Contact = () => {
                                         value={formData.message}
                                         onChange={handleChange}
                                         rows={4}
-                                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 resize-none text-sm sm:text-base ${errors.message ? 'border-red-500' : 'border-gray-700 focus:border-blue-500'
+                                        className={`w-full px-4 py-3 bg-zinc-950 border rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200 resize-none text-sm text-white placeholder-zinc-600 ${errors.message ? 'border-rose-500' : 'border-zinc-800'
                                             }`}
-                                        placeholder='Tell me about your project...'
+                                        placeholder='Tell me about your project, timeline, or engineering role...'
                                     />
-                                    {errors.message && <p className='mt-1 text-xs sm:text-sm text-red-400'>{errors.message}</p>}
+                                    {errors.message && <p className='mt-1 text-xs text-rose-400'>{errors.message}</p>}
                                 </div>
 
                                 <button
                                     type='submit'
                                     disabled={isSubmitting}
-                                    className={`w-full flex items-center justify-center gap-2 py-2 px-4 sm:py-3 sm:px-6 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${isSubmitting
-                                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                                        : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 cursor-pointer'
+                                    className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-medium transition-colors duration-200 text-sm ${isSubmitting
+                                        ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
+                                        : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm cursor-pointer'
                                         }`}
                                 >
                                     {isSubmitting ? (
                                         <>
-                                            <div className='w-4 h-4 sm:w-5 sm:h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin'></div>
+                                            <div className='w-4 h-4 border-2 border-zinc-400 border-t-transparent rounded-full animate-spin'></div>
                                             Sending...
                                         </>
                                     ) : (
@@ -350,23 +285,11 @@ const Contact = () => {
                     </ScrollAnimation>
                 </div>
 
-                {/* Copyright Section */}
-                <ScrollAnimation direction="up">
-                    <div className='border-t border-gray-800 mt-12 pt-6'>
-                        <div className='flex justify-center items-center px-4'>
-                            <div className='flex flex-col sm:flex-row items-center justify-center text-gray-400 text-xs sm:text-sm text-center'>
-                                <div className='flex items-center'>
-                                    <span>&copy; {new Date().getFullYear()} Virtus Dakura. Made with</span>
-                                    <FaHeart className='text-red-500 mx-1 sm:mx-2 animate-pulse' />
-                                </div>
-                                <span className='mt-1 sm:mt-0'>All rights reserved.</span>
-                            </div>
-                        </div>
-                    </div>
-                </ScrollAnimation>
+                {/* Footer Copyright */}
+                <div className='border-t border-zinc-800/60 mt-16 pt-8 text-center text-xs text-zinc-500 flex justify-center items-center'>
+                    <span>&copy; {new Date().getFullYear()} Virtus Dakura. All rights reserved.</span>
+                </div>
             </div>
-
-
         </section>
     );
 };
