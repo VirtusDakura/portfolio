@@ -3,10 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import { FaCode, FaLayerGroup, FaBolt, FaCheckCircle } from 'react-icons/fa';
 import ScrollAnimation from './ScrollAnimation';
 import { getAbout, urlFor } from '../utils/sanity';
-import { getIcon, getIconColor } from '../utils/iconMap';
+import { getIcon, getIconColor, getTechSublabel, getBrandGlow, getTechCategory, DEFAULT_TECH_STACK } from '../utils/iconMap';
 
 const About = () => {
     const [imageLoaded, setImageLoaded] = useState(false);
+    const [activeCategory, setActiveCategory] = useState('All');
+
     const { data: aboutData, isLoading: loading } = useQuery({
         queryKey: ['about'],
         queryFn: getAbout
@@ -16,7 +18,10 @@ const About = () => {
     const subtitle = aboutData?.subtitle || 'Engineering background, technical principles, and core competencies.';
     const heading = aboutData?.heading || 'Building modern, reliable software solutions.';
     const paragraphs = aboutData?.paragraphs || [];
-    const techStack = aboutData?.techStack || [];
+    
+    // Use fetched Sanity tech stack if non-empty, otherwise fallback to rich default stack
+    const fetchedTechStack = aboutData?.techStack && aboutData.techStack.length > 0 ? aboutData.techStack : null;
+    const allTechItems = fetchedTechStack || DEFAULT_TECH_STACK;
 
     const aboutImageUrl = aboutData?.aboutImage
         ? urlFor(aboutData.aboutImage).width(800).url()
@@ -51,6 +56,18 @@ const About = () => {
             description: 'Robust error handling, environment security, CI/CD integration, and resilient cloud deployments.'
         }
     ];
+
+    // Categories list for filter tabs
+    const categories = ['All', 'Frontend', 'Backend', 'Database', 'DevOps & Tools'];
+
+    // Filter items based on active tab using fallback category detection
+    const filteredTech = activeCategory === 'All'
+        ? allTechItems
+        : allTechItems.filter(item => {
+            const itemCat = getTechCategory(item);
+            return itemCat.toLowerCase().includes(activeCategory.toLowerCase().split(' ')[0]);
+        });
+
 
     if (loading) {
         return (
@@ -139,7 +156,7 @@ const About = () => {
                             {engineeringPrinciples.map((principle, index) => (
                                 <div
                                     key={index}
-                                    className='group/card relative bg-zinc-900/50 backdrop-blur-sm rounded-xl p-5 border border-zinc-800/60 hover:border-indigo-500/30 transition-all duration-300 overflow-hidden'
+                                    className='group/card relative bg-zinc-900/50 backdrop-blur-sm rounded-xl p-5 border border-zinc-800/60 hover:border-indigo-500/30 cursor-pointer transition-all duration-300 overflow-hidden'
                                 >
                                     {/* Left accent bar */}
                                     <div className='absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-indigo-500 to-violet-500 rounded-l-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300'></div>
@@ -164,32 +181,78 @@ const About = () => {
                     </ScrollAnimation>
                 </div>
 
-                {/* Technologies Grid */}
+                {/* Core Technologies Section */}
                 <div className='pt-10 border-t border-zinc-800/60'>
                     <ScrollAnimation direction="up" delay={400}>
-                        <div className='mb-8'>
-                            <h4 className='text-xl sm:text-2xl font-bold text-white tracking-tight'>
-                                Core Technologies
-                            </h4>
-                            <p className='text-sm text-zinc-400 mt-1'>Languages, frameworks, databases, and development tooling I build with daily.</p>
+                        <div className='flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3 sm:gap-4'>
+                            <div>
+                                <h4 className='text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2'>
+                                    <span>Core Technologies</span>
+                                    <span className='text-[11px] font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full font-medium'>
+                                        {filteredTech.length} {filteredTech.length === 1 ? 'Tool' : 'Tools'}
+                                    </span>
+                                </h4>
+                                <p className='text-xs sm:text-sm text-zinc-400 mt-0.5'>
+                                    Languages, frameworks, databases, and development tooling I build with daily.
+                                </p>
+                            </div>
+
+                            {/* Category Filter Pills (Compact & Sleek Alignment) */}
+                            <div className='inline-flex flex-wrap items-center gap-1 bg-zinc-900/90 p-1 rounded-lg border border-zinc-800/80 backdrop-blur-md self-start sm:self-auto'>
+                                {categories.map(cat => {
+                                    const isActive = activeCategory === cat;
+                                    return (
+                                        <button
+                                            key={cat}
+                                            onClick={() => setActiveCategory(cat)}
+                                            className={`text-xs font-medium px-2.5 sm:px-3 py-1 h-7 rounded-md transition-all duration-200 cursor-pointer select-none active:scale-95 touch-manipulation flex items-center justify-center leading-none ${
+                                                isActive
+                                                    ? 'bg-indigo-600 text-white shadow-[0_0_12px_rgba(99,102,241,0.4)]'
+                                                    : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                                            }`}
+                                        >
+                                            {cat}
+                                        </button>
+                                    );
+                                })}
+                            </div>
                         </div>
 
-                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3'>
-                            {techStack.map((tech, index) => (
-                                <div key={index} className='group/tech'>
-                                    <div className='relative bg-zinc-900/50 backdrop-blur-sm rounded-xl p-4 border border-zinc-800/60 hover:border-indigo-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center h-full overflow-hidden'>
-                                        {/* Hover shine */}
-                                        <div className='absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 pointer-events-none'></div>
+                        {/* Technology Cards Grid (Uniform Height & Pixel-Perfect Centered Alignment) */}
+                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-2.5 sm:gap-3'>
+                            {filteredTech.map((tech, index) => {
+                                const brandGlow = getBrandGlow(tech.icon);
+                                const sublabel = getTechSublabel(tech.icon, tech.sublabel);
+                                const categoryTag = getTechCategory(tech);
 
-                                        <div className='relative text-3xl mb-2.5 flex justify-center transform group-hover/tech:scale-110 transition-transform duration-300'>
-                                            {getIcon(tech.icon, tech.color || getIconColor(tech.icon))}
+                                return (
+                                    <div key={index} className='group/tech'>
+                                        <div
+                                            className={`relative bg-zinc-900/50 backdrop-blur-sm rounded-xl p-3 border border-zinc-800/70 ${brandGlow} cursor-pointer transition-all duration-300 flex flex-col items-center justify-center text-center h-28 sm:h-30 overflow-hidden`}
+                                        >
+                                            {/* Top Subtle Category Tag */}
+                                            <span className='absolute top-1.5 right-2 text-[9px] font-mono text-zinc-500 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300'>
+                                                {categoryTag.split(' ')[0]}
+                                            </span>
+
+                                            {/* Icon centered wrapper */}
+                                            <div className='relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-2xl sm:text-3xl mb-1.5 transform group-hover/tech:scale-110 transition-transform duration-300 ease-out'>
+                                                {getIcon(tech.icon, tech.color || getIconColor(tech.icon))}
+                                            </div>
+
+                                            {/* Tech Name */}
+                                            <p className='relative text-xs font-semibold text-zinc-200 tracking-tight group-hover/tech:text-white transition-colors duration-300 text-center leading-tight truncate w-full px-1'>
+                                                {tech.name}
+                                            </p>
+
+                                            {/* Tech Sublabel */}
+                                            <p className='relative text-[10px] text-zinc-500 group-hover/tech:text-zinc-400 transition-colors duration-300 font-normal leading-tight text-center truncate w-full px-1 mt-0.5'>
+                                                {sublabel}
+                                            </p>
                                         </div>
-                                        <p className='relative text-xs text-zinc-400 group-hover/tech:text-zinc-200 transition-colors duration-300 font-medium tracking-tight'>
-                                            {tech.name}
-                                        </p>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </ScrollAnimation>
                 </div>
@@ -198,4 +261,4 @@ const About = () => {
     );
 };
 
-export default About;
+export default About;

@@ -23,25 +23,67 @@ const Service = () => {
             title: 'Frontend Architecture',
             icon: 'code',
             description: 'Building high-performance, responsive single-page and server-rendered web applications with type-safe modern frameworks.',
-            technologies: ['React', 'Next.js', 'JavaScript (ES6+)', 'Tailwind CSS', 'Vite']
+            highlights: [
+                'Type-safe React & Next.js client architectures',
+                'Optimized rendering, Core Web Vitals & dynamic caching',
+                'Responsive utility-first styling with Tailwind CSS'
+            ],
+            technologies: [
+                { name: 'React', icon: 'react' },
+                { name: 'Next.js', icon: 'nextjs' },
+                { name: 'TypeScript', icon: 'typescript' },
+                { name: 'Tailwind CSS', icon: 'tailwind' },
+                { name: 'Vite', icon: 'vite' }
+            ]
         },
         {
             title: 'Backend & API Systems',
             icon: 'server',
             description: 'Designing scalable RESTful APIs, microservices, secure authentication flows, and real-time backend communication.',
-            technologies: ['Node.js', 'Express', 'REST APIs', 'WebSockets', 'Sanity CMS']
+            highlights: [
+                'Robust REST & GraphQL API endpoint design',
+                'Secure JWT/OAuth authentication & middleware',
+                'Server-side logic with Node.js, Express & Python'
+            ],
+            technologies: [
+                { name: 'Node.js', icon: 'nodejs' },
+                { name: 'Express', icon: 'express' },
+                { name: 'Python', icon: 'python' },
+                { name: 'REST APIs', icon: 'server' }
+            ]
         },
         {
             title: 'Databases & Infrastructure',
             icon: 'database',
             description: 'Database schema modeling, query optimization, caching strategies, and automated cloud deployments.',
-            technologies: ['PostgreSQL', 'MongoDB', 'Redis', 'Vercel', 'Docker']
+            highlights: [
+                'Relational (PostgreSQL) & NoSQL (MongoDB) schemas',
+                'Type-safe database ORMs (Prisma) & Redis caching',
+                'Serverless functions & edge cloud deployments'
+            ],
+            technologies: [
+                { name: 'PostgreSQL', icon: 'postgresql' },
+                { name: 'MongoDB', icon: 'mongodb' },
+                { name: 'Redis', icon: 'redis' },
+                { name: 'Prisma', icon: 'prisma' },
+                { name: 'Docker', icon: 'docker' }
+            ]
         },
         {
             title: 'Tooling & System Design',
             icon: 'cloud',
             description: 'Version control workflows, CI/CD pipeline automation, clean code principles, and performance benchmarking.',
-            technologies: ['Git & GitHub', 'CI/CD Pipelines', 'System Architecture', 'Unit Testing']
+            highlights: [
+                'Modular component systems & clean code standards',
+                'Git version control & automated GitHub Actions',
+                'Cloud hosting on Vercel, AWS & modern BaaS'
+            ],
+            technologies: [
+                { name: 'AWS', icon: 'aws' },
+                { name: 'Vercel', icon: 'vercel' },
+                { name: 'Git', icon: 'git' },
+                { name: 'Figma', icon: 'figma' }
+            ]
         }
     ];
 
@@ -91,16 +133,23 @@ const Service = () => {
                     </div>
                 </ScrollAnimation>
 
-                {/* Direct CTA */}
+                {/* Direct CTA Banner */}
                 <ScrollAnimation direction="up" delay={300}>
-                    <div className='mt-12 p-6 sm:p-8 bg-zinc-900/60 border border-zinc-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6'>
-                        <div>
-                            <h4 className='text-lg font-bold text-white tracking-tight mb-1'>Need a custom web system or API integrated?</h4>
-                            <p className='text-xs sm:text-sm text-zinc-400'>Let's discuss how I can help architect and build your product.</p>
+                    <div className='relative mt-12 p-6 sm:p-8 bg-gradient-to-r from-zinc-900/90 via-zinc-900/60 to-zinc-900/90 border border-zinc-800/80 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden shadow-xl group'>
+                        {/* Ambient glow */}
+                        <div className='absolute -inset-1 bg-indigo-500/5 rounded-2xl blur-xl group-hover:bg-indigo-500/10 transition-colors duration-500 pointer-events-none'></div>
+
+                        <div className='relative z-10'>
+                            <h4 className='text-lg sm:text-xl font-bold text-white tracking-tight mb-1'>
+                                Need a custom web application or API integrated?
+                            </h4>
+                            <p className='text-xs sm:text-sm text-zinc-400'>
+                                Let's discuss your project requirements and technical architecture.
+                            </p>
                         </div>
                         <button
                             onClick={scrollToContact}
-                            className='bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2.5 rounded-lg shadow-sm transition-all duration-200 cursor-pointer text-sm whitespace-nowrap'
+                            className='relative z-10 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2.5 rounded-xl shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] transition-all duration-200 cursor-pointer text-sm whitespace-nowrap active:scale-95'
                         >
                             Get in Touch
                         </button>
@@ -111,4 +160,4 @@ const Service = () => {
     );
 };
 
-export default Service;
+export default Service;
