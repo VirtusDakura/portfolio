@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, defineArrayMember } from 'sanity'
 
 export default defineType({
     name: 'about',
@@ -34,7 +34,7 @@ export default defineType({
             name: 'paragraphs',
             title: 'About Paragraphs',
             type: 'array',
-            of: [{ type: 'text' }],
+            of: [defineArrayMember({ type: 'text' })],
             description: 'Add multiple paragraphs about yourself',
         }),
         defineField({
@@ -42,13 +42,13 @@ export default defineType({
             title: 'Statistics',
             type: 'array',
             of: [
-                {
+                defineArrayMember({
                     type: 'object',
                     fields: [
-                        { name: 'number', title: 'Number/Value', type: 'string' },
-                        { name: 'label', title: 'Label', type: 'string' },
+                        defineField({ name: 'number', title: 'Number/Value', type: 'string' }),
+                        defineField({ name: 'label', title: 'Label', type: 'string' }),
                     ],
-                },
+                }),
             ],
         }),
         defineField({
@@ -56,19 +56,39 @@ export default defineType({
             title: 'Technology Stack',
             type: 'array',
             of: [
-                {
+                defineArrayMember({
                     type: 'object',
                     fields: [
-                        { name: 'name', title: 'Technology Name', type: 'string' },
-                        {
+                        defineField({ name: 'name', title: 'Technology Name', type: 'string' }),
+                        defineField({
                             name: 'icon',
                             title: 'Icon Name',
                             type: 'string',
-                            description: 'Icon identifier (e.g., "react", "nodejs", "python")',
-                        },
-                        { name: 'color', title: 'Icon Color', type: 'string', description: 'e.g., "text-blue-500"' },
+                            description: 'Icon identifier (e.g., "react", "nodejs", "python", "postgresql", "docker")',
+                        }),
+                        defineField({
+                            name: 'category',
+                            title: 'Category',
+                            type: 'string',
+                            description: 'e.g., "Frontend", "Backend", "Database", "DevOps & Tools"',
+                            options: {
+                                list: [
+                                    { title: 'Frontend', value: 'Frontend' },
+                                    { title: 'Backend', value: 'Backend' },
+                                    { title: 'Database', value: 'Database' },
+                                    { title: 'DevOps & Tools', value: 'DevOps & Tools' },
+                                ],
+                            },
+                        }),
+                        defineField({
+                            name: 'sublabel',
+                            title: 'Sublabel / Role',
+                            type: 'string',
+                            description: 'e.g., "UI Library", "Relational DB", "Containerization"',
+                        }),
+                        defineField({ name: 'color', title: 'Icon Color', type: 'string', description: 'e.g., "text-blue-500"' }),
                     ],
-                },
+                }),
             ],
         }),
     ],
@@ -79,3 +99,4 @@ export default defineType({
         },
     },
 })
+
