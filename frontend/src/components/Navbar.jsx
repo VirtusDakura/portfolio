@@ -3,12 +3,38 @@ import React, { useState, useEffect } from 'react';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'skills', label: 'Capabilities' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'contact', label: 'Contact' }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // ScrollSpy section detection
+      const scrollPosition = window.scrollY + 180;
+      const sectionIds = navItems.map(item => item.id);
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionIds[i]);
+        if (section) {
+          const top = section.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveSection(sectionIds[i]);
+            break;
+          }
+        }
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -29,6 +55,7 @@ const Navbar = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(sectionId);
       setIsMobileMenuOpen(false);
     }
   };
@@ -45,28 +72,38 @@ const Navbar = () => {
         }`}>
           <div className='flex justify-between items-center h-16 sm:h-18 md:h-20'>
             {/* Logo */}
-            <div className='text-lg sm:text-xl md:text-2xl font-mono font-bold tracking-tight text-white'>
+            <button 
+              onClick={() => scrollToSection('home')}
+              className='text-lg sm:text-xl md:text-2xl font-mono font-bold tracking-tight text-white cursor-pointer bg-transparent border-0 p-0'
+            >
               &lt;<span className="text-indigo-400">Virtus</span>/&gt;
-            </div>
+            </button>
 
             {/* Desktop Navigation */}
             <div className='hidden lg:flex space-x-6 xl:space-x-8'>
-              {['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className='text-zinc-400 hover:text-white transition-colors duration-200 capitalize relative group text-sm xl:text-base cursor-pointer'
-                >
-                  {item}
-                  <span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-200'></span>
-                </button>
-              ))}
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`transition-colors duration-200 relative group text-sm xl:text-base cursor-pointer font-medium ${
+                      isActive ? 'text-white font-semibold' : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    {item.label}
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-indigo-500 transition-all duration-300 ${
+                      isActive ? 'w-full shadow-[0_0_8px_rgba(99,102,241,0.8)]' : 'w-0 group-hover:w-full'
+                    }`}></span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* CTA Button */}
             <button 
               onClick={() => scrollToSection('contact')}
-              className='hidden lg:block bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 xl:px-5 xl:py-2 rounded-lg transition-colors duration-200 cursor-pointer text-sm shadow-sm'
+              className='hidden lg:block bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 xl:px-5 xl:py-2 rounded-xl transition-all duration-200 cursor-pointer text-sm shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] active:scale-95'
             >
               Let's Talk
             </button>
@@ -112,22 +149,29 @@ const Navbar = () => {
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className='space-y-4 text-center w-full max-w-xs'>
-            {['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
-              <div key={item}>
-                <button
-                  onClick={() => scrollToSection(item)}
-                  className='w-full text-zinc-300 hover:text-white hover:bg-zinc-900/60 transition-all duration-200 capitalize py-3 px-6 text-lg font-medium rounded-lg border border-transparent hover:border-zinc-800'
-                >
-                  {item}
-                </button>
-              </div>
-            ))}
+          <div className='space-y-3.5 text-center w-full max-w-xs'>
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <div key={item.id}>
+                  <button
+                    onClick={() => scrollToSection(item.id)}
+                    className={`w-full transition-all duration-200 py-3 px-6 text-base font-medium rounded-xl border ${
+                      isActive
+                        ? 'bg-indigo-600/20 text-indigo-300 border-indigo-500/40 shadow-[0_0_12px_rgba(99,102,241,0.3)]'
+                        : 'text-zinc-300 hover:text-white hover:bg-zinc-900/60 border-transparent'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </div>
+              );
+            })}
             
-            <div className='pt-6'>
+            <div className='pt-4'>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className='w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 text-base shadow-sm'
+                className='w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 text-base shadow-[0_0_15px_rgba(99,102,241,0.3)] active:scale-95'
               >
                 Let's Connect
               </button>
