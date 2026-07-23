@@ -104,21 +104,21 @@ const Contact = () => {
     ];
 
     return (
-        <section id='contact' className='text-white py-16 sm:py-24 border-t border-zinc-800/60 pb-12'>
+        <section id='contact' className='text-white py-10 sm:py-16 border-t border-zinc-800/60 pb-8'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-28'>
                 {/* Section Header */}
                 <ScrollAnimation direction="up">
-                    <div className='mb-12'>
-                        <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight'>
+                    <div className='mb-6 sm:mb-8'>
+                        <h2 className='text-2xl sm:text-4xl font-extrabold text-white tracking-tight'>
                             Get In Touch
                         </h2>
-                        <p className='text-zinc-400 text-base sm:text-lg max-w-2xl mt-2'>
+                        <p className='text-zinc-400 text-sm sm:text-base max-w-2xl mt-1.5 leading-relaxed'>
                             Interested in collaborating, hiring for full-stack roles, or discussing software projects? Reach out directly.
                         </p>
                     </div>
                 </ScrollAnimation>
 
-                <div className='grid lg:grid-cols-12 gap-8 lg:gap-12 items-start'>
+                <div className='grid lg:grid-cols-12 gap-6 lg:gap-10 items-start'>
                     {/* Left Column: Direct Contact Details */}
                     <ScrollAnimation direction="left" className='lg:col-span-5 space-y-6'>
                         {/* Direct Email Card */}

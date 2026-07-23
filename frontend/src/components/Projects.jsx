@@ -98,16 +98,16 @@ const Projects = () => {
     }
 
     return (
-        <section id='projects' className='text-white py-16 sm:py-24 border-t border-zinc-800/60'>
+        <section id='projects' className='text-white py-10 sm:py-16 border-t border-zinc-800/60'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-28'>
                 {/* Section Header */}
                 <ScrollAnimation direction="up">
-                    <div className='flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4'>
+                    <div className='flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4'>
                         <div>
-                            <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight'>
+                            <h2 className='text-2xl sm:text-4xl font-extrabold text-white tracking-tight'>
                                 Selected Engineering Projects
                             </h2>
-                            <p className='text-zinc-400 text-base sm:text-lg max-w-2xl mt-2'>
+                            <p className='text-zinc-400 text-sm sm:text-base max-w-2xl mt-1.5 leading-relaxed'>
                                 Production applications, full-stack architectures, and open-source software built for scale and performance.
                             </p>
                         </div>
@@ -134,15 +134,24 @@ const Projects = () => {
                     </div>
                 </ScrollAnimation>
 
-                {/* Projects Grid */}
+                {/* Projects Grid / Horizontal Carousel on Mobile */}
                 <ScrollAnimation direction="up" delay={200}>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8'>
+                    <div className='flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 md:pb-0'>
                         {filteredProjects.map((project) => (
-                            <ProjectCard 
+                            <div 
                                 key={project._id}
-                                project={project}
-                            />
+                                className='w-[86vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink-1'
+                            >
+                                <ProjectCard 
+                                    project={project}
+                                />
+                            </div>
                         ))}
+                    </div>
+
+                    {/* Mobile Horizontal Swipe Arrow Hint */}
+                    <div className='flex md:hidden items-center justify-end mt-1.5 text-indigo-400 text-sm font-bold'>
+                        <span className='animate-pulse'>→</span>
                     </div>
                 </ScrollAnimation>
 
