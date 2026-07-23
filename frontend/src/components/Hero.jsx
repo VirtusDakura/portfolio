@@ -88,26 +88,26 @@ const Hero = () => {
     }
 
     return (
-        <section id="home" className='min-h-screen text-white flex items-center justify-center relative pt-24 sm:pt-28 pb-16'>
+        <section id="home" className='min-h-[85vh] sm:min-h-screen text-white flex items-center justify-center relative pt-20 sm:pt-24 pb-10 sm:pb-16'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-28 relative z-10'>
-                <div className='flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16'>
+                <div className='flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-14'>
                     {/* Left Column: Intro & Headline */}
                     <ScrollAnimation direction="left" delay={200} className='w-full lg:w-7/12 text-left order-2 lg:order-1'>
 
 
                         {/* Title & Headline */}
-                        <div className='mb-6'>
-                            <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-3 leading-tight text-white tracking-tight'>
+                        <div className='mb-4 sm:mb-6'>
+                            <h1 className='text-3xl sm:text-5xl lg:text-6xl font-extrabold mb-2 leading-tight text-white tracking-tight'>
                                 {name}
                             </h1>
-                            <p className='text-lg sm:text-xl lg:text-2xl font-medium text-indigo-400 tracking-tight h-8 sm:h-9 lg:h-10'>
+                            <p className='text-base sm:text-xl font-medium text-indigo-400 tracking-tight h-7 sm:h-8'>
                                 <span>{displayText}</span>
                                 <span className='inline-block w-[2px] h-[1em] bg-indigo-400 ml-0.5 align-middle animate-pulse'></span>
                             </p>
                         </div>
 
                         {/* Brief Bio */}
-                        <p className='text-base sm:text-lg text-zinc-400 mb-8 max-w-2xl leading-relaxed'>
+                        <p className='text-sm sm:text-base text-zinc-400 mb-6 max-w-xl leading-relaxed'>
                             {bio}
                         </p>
 

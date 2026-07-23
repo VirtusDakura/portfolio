@@ -103,39 +103,45 @@ const Service = () => {
     }
 
     return (
-        <section id='skills' className='text-white py-16 sm:py-24 border-t border-zinc-800/60'>
+        <section id='skills' className='text-white py-10 sm:py-16 border-t border-zinc-800/60'>
             <div className='container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-28'>
-                {/* Section Tag */}
+                {/* Section Header */}
                 <ScrollAnimation direction="up">
-                    <div className='mb-12'>
-                        <span className='text-xs font-mono font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-md'>
-                            02 // TECHNICAL EXPERTISE
-                        </span>
-                        <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 text-white tracking-tight'>
+                    <div className='mb-6 sm:mb-8'>
+                        <h2 className='text-2xl sm:text-4xl font-extrabold text-white tracking-tight'>
                             Engineering Capabilities
                         </h2>
-                        <p className='text-zinc-400 text-base sm:text-lg max-w-2xl mt-2'>
+                        <p className='text-zinc-400 text-sm sm:text-base max-w-2xl mt-1.5 leading-relaxed'>
                             Specialized technical competencies across modern web architecture, API engineering, and cloud systems.
                         </p>
                     </div>
                 </ScrollAnimation>
 
-                {/* Technical Expertise Grid */}
+                {/* Technical Expertise Grid / Horizontal Carousel on Mobile */}
                 <ScrollAnimation direction="up" delay={200}>
-                    <div className='grid md:grid-cols-2 gap-6 lg:gap-8'>
+                    <div className='flex md:grid md:grid-cols-2 gap-4 sm:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 md:pb-0'>
                         {displaySkills.map((service, index) => (
-                            <ServiceCard 
+                            <div 
                                 key={service._id || index}
-                                service={service}
-                                index={index}
-                            />
+                                className='w-[86vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink-1'
+                            >
+                                <ServiceCard 
+                                    service={service}
+                                    index={index}
+                                />
+                            </div>
                         ))}
+                    </div>
+
+                    {/* Mobile Horizontal Swipe Arrow Hint */}
+                    <div className='flex md:hidden items-center justify-end mt-1.5 text-indigo-400 text-sm font-bold'>
+                        <span className='animate-pulse'>→</span>
                     </div>
                 </ScrollAnimation>
 
                 {/* Direct CTA Banner */}
                 <ScrollAnimation direction="up" delay={300}>
-                    <div className='relative mt-12 p-6 sm:p-8 bg-gradient-to-r from-zinc-900/90 via-zinc-900/60 to-zinc-900/90 border border-zinc-800/80 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden shadow-xl group'>
+                    <div className='relative mt-8 sm:mt-10 p-5 sm:p-7 bg-gradient-to-r from-zinc-900/90 via-zinc-900/60 to-zinc-900/90 border border-zinc-800/80 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-5 overflow-hidden shadow-xl group'>
                         {/* Ambient glow */}
                         <div className='absolute -inset-1 bg-indigo-500/5 rounded-2xl blur-xl group-hover:bg-indigo-500/10 transition-colors duration-500 pointer-events-none'></div>
 
