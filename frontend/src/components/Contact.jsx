@@ -109,10 +109,7 @@ const Contact = () => {
                 {/* Section Header */}
                 <ScrollAnimation direction="up">
                     <div className='mb-12'>
-                        <span className='text-xs font-mono font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-md'>
-                            04 // CONTACT
-                        </span>
-                        <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 text-white tracking-tight'>
+                        <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight'>
                             Get In Touch
                         </h2>
                         <p className='text-zinc-400 text-base sm:text-lg max-w-2xl mt-2'>

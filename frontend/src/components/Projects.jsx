@@ -104,10 +104,7 @@ const Projects = () => {
                 <ScrollAnimation direction="up">
                     <div className='flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4'>
                         <div>
-                            <span className='text-xs font-mono font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-md'>
-                                03 // FEATURED WORK
-                            </span>
-                            <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 text-white tracking-tight'>
+                            <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight'>
                                 Selected Engineering Projects
                             </h2>
                             <p className='text-zinc-400 text-base sm:text-lg max-w-2xl mt-2'>
